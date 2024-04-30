@@ -7,9 +7,9 @@ import { getQuizByQuizIdNested } from '$lib/server/db/tables/quiz/Quiz';
 
 export const load = (({ locals, depends }) => {
 	depends('template:load');
-	if (!locals?.role?.includes('teacher')) {
-		throw error(404, 'Neteisėtas prisijungimas');
-	}
+	// if (!locals?.role?.includes('teacher')) {
+	// 	throw error(404, 'Neteisėtas prisijungimas');
+	// }
 
     let complaints: ComplaintType[] = [];
     const nestedQuizes: QuizType[] = [];

@@ -11,9 +11,9 @@ import type { QuizWithAttemptsType } from './QuizWithAttemptsType';
 import { getUsers } from '$lib/server/db/tables/user/User';
 
 export const load = (({ locals }) => {
-	if (!locals?.role?.includes('teacher')) {
-		throw error(404, 'Neteisėtas prisijungimas');
-	}
+	// if (!locals?.role?.includes('teacher')) {
+	// 	throw error(404, 'Neteisėtas prisijungimas');
+	// }
 
     const userId: number = Number(locals?.user_id);
 

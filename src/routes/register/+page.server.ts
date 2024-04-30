@@ -1,11 +1,12 @@
-import { createUser } from '$lib/server/db/tables/user/User';
-import { createSession } from '$lib/server/sessionStore';
+import { createUser, getUsers } from '$lib/server/db/tables/user/User';
+//import { createSession } from '$lib/server/sessionStore';
+import { getUserEmailByUserId, getUserIdByUsername, getUserRoleByUserId } from '$lib/server/db/tables/user/User';
 import { fail, redirect, type Actions, type Cookies } from '@sveltejs/kit';
 
-function performLogin(cookies: Cookies, username: string) {
+async function performLogin(cookies: Cookies, username: string) {
 	const maxAge = 1000 * 60 * 60 * 24 * 30; // 30 days
-	const sid = createSession(username, maxAge);
-	cookies.set('sid', sid, { maxAge });
+	//const sid = await createSession(username, maxAge);
+	//cookies.set('sid', sid, { maxAge });
 }
 
 export const actions: Actions = {
@@ -17,7 +18,7 @@ export const actions: Actions = {
 		const email = data.get('email')?.toString();
 
 		if (name && username && password && email) {
-			createUser(name, username, password, email);
+			// createUser(name, username, password, email);
 			performLogin(cookies, username);
 			throw redirect(303, '/');
 		} else {

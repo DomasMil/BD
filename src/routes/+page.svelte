@@ -8,7 +8,10 @@
 		if(!data.loggedIn){
 			goto('/login');
 		}else if(data.loggedIn && data.role == 'teacher'){
-			goto('/teacher');
+			goto('/concreteimones');
+		}
+		else{
+			goto('/');
 		}
 	}
 
@@ -17,7 +20,7 @@
 <div class="container">
 	<form method="POST" class="quiz-start">
 		<label for="test-code-input">Testo kodas</label>
-			<div class="input-container">
+			<div class="input-container">	
 				<div class="input-wrapper">
 					<input
 					class="input my-2"

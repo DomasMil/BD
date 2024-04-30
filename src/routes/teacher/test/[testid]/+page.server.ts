@@ -5,9 +5,9 @@ import { getQuestionsByQuizId } from '$lib/server/db/tables/question/Question';
 import type { QuizType } from '$lib/server/db/tables/quiz/QuizType';
 
 export const load = (({ params, locals }) => {
-	if (!locals?.role?.includes('teacher')) {
-		throw error(404, 'Neteisėtas prisijungimas');
-	}
+	// if (!locals?.role?.includes('teacher')) {
+	// 	throw error(404, 'Neteisėtas prisijungimas');
+	// }
 
     const quizID = params.testid === "create" ? -1 : parseInt(params.testid);
     const quiz = quizID === -1 ? {} : getQuizByQuizIdNested(quizID);

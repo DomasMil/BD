@@ -2,15 +2,17 @@ import type { PageServerLoad } from './$types';
 import type { Actions } from '@sveltejs/kit';
 import { getQuizByCode } from '$lib/server/db/tables/quiz/Quiz';
 import { redirect, error } from '@sveltejs/kit';
+import { parse } from 'cookie';
 
-export const load = (({ locals }) => { 
-	const { username, role} = locals;
+export const load = ({ request }) => {
+    const cookies = request.headers.get('cookie');
+    const { loggedIn, role, } = parse(cookies || '');
 
-	return {
-		loggedIn: !!username,
-		role: role
-	};
-}) satisfies PageServerLoad;
+    return {
+        loggedIn: !!loggedIn, // Convert string to boolean
+        role: role
+    };
+};
 
 
 export const actions: Actions = {

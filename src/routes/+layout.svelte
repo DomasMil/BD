@@ -15,79 +15,21 @@
 		});
 	});
 
-	let isDarkTheme: boolean = false;
+	let isSideMenuOpen: boolean = false;
 
-	function toggleTheme() {
-		isDarkTheme = !isDarkTheme;
-		if (isDarkTheme) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
+	function toggleSideMenu() {
+        isSideMenuOpen = !isSideMenuOpen;
+		
     }
 
 	export let data: LayoutServerData;
 </script>
-
 <header>
-	<nav class="navbar is-primary px-4" style={isDarkTheme ? "background-color: var(--bg-color-dark1);" : ""} aria-label="main navigation">
+	<nav class="navbar is-primary px-4" style="aria-label: main navigation">
 		<div class="navbar-brand pr-4">
 			<span class="is-size-3 has-text-weight-semibold">Quizeris</span>
 		</div>
 		<div class="navbar-menu">
-			<div class="navbar-start">
-				<button class="btn-toggle-dark" on:click={toggleTheme}>
-					{#if isDarkTheme}
-						<span style="color: white;">🌙 Dark</span>
-					{:else}
-						<span style="color: white;">☀️ Light</span>
-					{/if}
-				</button>
-				{#if data?.username && data?.role === 'student'}
-					<a
-						aria-current={$page.url.pathname === '/' ? 'page' : undefined}
-						href="/"
-						class="navbar-item">Pagrindinis</a
-					>
-
-					<a
-						aria-current={$page.url.pathname === '/user/results' ? 'page' : undefined}
-						href="/user/results"
-						class="navbar-item">Rezultatai</a
-					>					
-
-					<a
-						aria-current={$page.url.pathname === '/user/trophy' ? 'page' : undefined}
-						href="/user/trophy"
-						class="navbar-item">Trofėjai</a
-					>
-				{/if}
-				{#if data?.username && data?.role === 'teacher'}
-					<a
-						aria-current={$page.url.pathname === '/teacher' ? 'page' : undefined}
-						href="/teacher"
-						class="navbar-item">Testai</a
-					>
-
-					<a
-						aria-current={$page.url.pathname === '/teacher/results' ? 'page' : undefined}
-						href="/teacher/results"
-						class="navbar-item">Rezultatai</a
-					>	
-
-					<a
-						aria-current={$page.url.pathname === '/teacher/users' ? 'page' : undefined}
-						href="/teacher/users"
-						class="navbar-item">Atlikinėtojų sąrašas</a
-					>
-					
-					<a
-					aria-current={$page.url.pathname === '/teacher/complains' ? 'page' : undefined}
-					href="/teacher/complains"
-					class="navbar-item">Skundžiami klausimai</a
-					>	
-				{/if}
-			</div>
 		</div>
 
 		<div class="navbar-end">
@@ -118,29 +60,44 @@
 		</div>
 	</nav>
 </header>
-<slot />
+<div class="columns">
+    <!-- Side menu -->
+    <aside class="column is-2" style={isSideMenuOpen ? "display: block;" : "display: none;"}>
+        <div class="menu">
+            <ul class="menu-list">
+				<li><a href="/concretecubestrenghttest">+Kubelinio stiprio bandymai</a></li>
+				<li><a href="/addconcretecubestrenghttest">+Sukurti naują kubelinio stiprio bandymą</a></li>
+				<li><a href="/concreteusers">+Vartotojai</a></li>
+				<li><a href="/concreteimones">+Įmonės</a></li>
+                <!-- Adjust links based on user role -->
+                {#if data?.role === 'student'}
+                    <li><a href="/user/results">Rezultatai</a></li>
+                    <li><a href="/user/trophy">Trofėjai</a></li>
+                {:else if data?.role === 'teacher'}
+                    <li><a href="/teacher">Testai</a></li>
+                    <li><a href="/teacher/results">Rezultatai</a></li>
+                    <li><a href="/teacher/users">Atlikinėtojų sąrašas</a></li>
+                    <li><a href="/teacher/complains">Skundžiami klausimai</a></li>
+                {/if}
+            </ul>
+        </div>
+    </aside>
+
+    <!-- Main content area -->
+    <main class="column" style={isSideMenuOpen ? "margin-left: -0.5rem;" : "margin-left: 0;"}>
+        <!-- Your existing header/navigation bar code... -->
+		<!-- Button to toggle the side menu -->
+<button class="button is-info" on:click={toggleSideMenu}>Toggle Side Menu</button>
+        <!-- Content goes here -->
+        <slot />
+    </main>
+</div>
 
 <style>
-	.navbar-item, .btn-toggle-dark {
+	.navbar-item {
 		display: flex;
 		align-items: center;
 	}
-
-	.btn-toggle-dark {
-		background: none;
-		border: none;
-		cursor: pointer;
-	}
-
-	.navbar-item[aria-current='page']::before {
-		content: '●';
-		font-size: 0.7rem;
-		color: #46fde1;
-		padding-right: 2px;
-		view-transition-name: active-page;
-	}
-
-
 	::-webkit-scrollbar-track {
 		background: #f1f1f1; 
 	}
@@ -158,5 +115,36 @@
 	::-webkit-scrollbar-thumb:hover {
 		background: #009900; 
 	}
+
+	    /* Style for side menu */
+		.columns {
+        margin-top: -0.62rem; /* Adjust this as needed */
+
+    }
+	
+    .menu {
+        background-color: #f5f5f5; /* Adjust as needed */
+        height: 100vh; /* Adjust as needed */
+        border-right: 1px solid #ccc; /* Adjust as needed */
+    }
+
+    .menu-list {
+        padding: 1rem;
+        list-style-type: none;
+    }
+
+    .menu-list li {
+        margin-bottom: 0.5rem;
+    }
+
+    .menu-list li a {
+        color: #333; /* Adjust as needed */
+        text-decoration: none;
+    }
+
+    .menu-list li a:hover {
+        color: #007bff; /* Adjust as needed */
+    }
 	
 </style>
+

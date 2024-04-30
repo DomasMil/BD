@@ -42,33 +42,7 @@
           </p>
         </div>
       </header>
-      <div class="card-content">
-        <div class="content">
-            {#if user.points >= 2}
-                <div class="trophy-info">
-                    <img class="trophy-image" src={wood} alt="Trophy" />
-                    <span class="trophy-text">Reikėjo 2 taškų</span>
-                </div>
-            {/if}
-            {#if user.points >= 10}
-                <div class="trophy-info">
-                    <img class="trophy-image" src={copper} alt="Trophy" />
-                    <span class="trophy-text">Reikėjo 10 taškų</span>
-                </div>
-            {/if}
-            {#if user.points >= 20}
-                <div class="trophy-info">
-                    <img class="trophy-image" src={silver} alt="Trophy" />
-                    <span class="trophy-text">Reikėjo 20 taškų</span>
-                </div>
-            {/if}
-            {#if user.points >= 50}
-                <div class="trophy-info">
-                    <img class="trophy-image" src={gold} alt="Trophy" />
-                    <span class="trophy-text">Reikėjo 50 taškų</span>
-                </div>
-            {/if}
-        </div>
-      </div>
+      
     </div>
+    
 </div>

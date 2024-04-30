@@ -3,11 +3,11 @@ import type { PageServerLoad } from './$types';
 import { getQuizByQuizIdNested } from '$lib/server/db/tables/quiz/Quiz';
 
 export const load = (({ locals, request, params }) => {
-	if (locals?.role?.includes('teacher')) {
-        window.location.href = '/teacher';
-    } else if (!locals?.role?.includes('student')) {
-		throw error(404, 'Neteisėtas prisijungimas');
-	}
+	// if (locals?.role?.includes('teacher')) {
+    //     window.location.href = '/teacher';
+    // } else if (!locals?.role?.includes('student')) {
+	// 	throw error(404, 'Neteisėtas prisijungimas');
+	// }
 
     const testId: number = Number(params.testid);
 

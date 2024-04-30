@@ -1,10 +1,12 @@
 <script lang="ts">
 	import type { ActionData } from './$types';
 
-	let username = 'user';
-	let password = 'user';
+	let username = 'teacher';
+	let password = 'teacher';
 
 	export let form: ActionData;
+
+	
 </script>
 
 <div class="container" style="max-width: 55ch;">

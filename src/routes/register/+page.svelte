@@ -1,7 +1,9 @@
 <script lang="ts">
 	import type { ActionData } from './$types';
+	import { goto } from '$app/navigation';
 
 	export let form: ActionData;
+
 </script>
 
 <div class="container" style="max-width: 55ch;">
