@@ -58,3 +58,10 @@ export async function checkUserCredentials(username: string, password: string): 
         return false;
     }
 }
+
+export async function updateUserPassword(username: string, password: string) {
+    const salt = bcrypt.genSaltSync(12);
+    const hashed_password = bcrypt.hashSync(password, salt);
+    const [result] = await pool.query('UPDATE users SET password = ? WHERE username = ?', [hashed_password, username])
+    return result
+}
