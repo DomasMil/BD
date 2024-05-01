@@ -6,7 +6,7 @@ import { parse } from 'cookie';
 import type { CompanyType } from '$lib/server/db/tables/company/CompanyType';
 import { createCompany, getCompanies, updateCompany } from '$lib/server/db/tables/company/Company';
 import type { ConstructionSiteType } from '$lib/server/db/tables/constructionsite/ConstructionSiteType.js';
-import { getConstructionSites } from '$lib/server/db/tables/constructionsite/ConstructionSite';
+import { createConstructionSite, getConstructionSites } from '$lib/server/db/tables/constructionsite/ConstructionSite';
 import { fail, redirect, type Actions} from '@sveltejs/kit';
 
 export const load = async ({ request, depends }) => {
@@ -55,5 +55,18 @@ export const actions: Actions = {
         } else {
             return fail(400, { errorMessage: 'Missing information' });
         }
-	}   
+	},
+    
+    addconstructionsite: async ({ request, cookies }) => {
+        const data = await request.formData();
+        const company_id = Number(data.get('id'));
+        const name = data.get('name')?.toString();
+        const address = data.get('address')?.toString();
+        if (name && address && company_id) {
+            createConstructionSite(company_id, name, address);
+            throw redirect(303, '/concreteimones?siteaddsuccess');
+        } else {
+            return fail(400, { errorMessage: 'Missing information' });
+        }
+	}
 };

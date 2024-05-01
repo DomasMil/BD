@@ -13,12 +13,14 @@
     let currentPage = 1;
     const itemsPerPage = 8;
     let isModalOpen = false;
+    let isConstructionSiteModalOpen = false;
     let isNewEntry = true;
     let selectedCompany: CompanyType | null = null;
     let showAddSuccess = false;
     let showAddFail = false;
     let showUpdateSuccess = false;
     let showUpdateFail = false;
+    let showSiteAddSuccess = false;
 
     onMount(() => {
       const params = new URLSearchParams(window.location.search);
@@ -26,6 +28,7 @@
       showAddFail = params.has('addfailed');
       showUpdateSuccess = params.has('updatesuccess');
       showUpdateFail = params.has('updatefailed');
+      showSiteAddSuccess = params.has('siteaddsuccess');
     });
 
     $: if (comapanies == null) {
@@ -54,7 +57,13 @@
 
     function closeModal() {
         isModalOpen = false;
-    }   isNewEntry = true;
+        isNewEntry = true;
+    }   
+
+    function closeConstructionSiteModal() {
+        isConstructionSiteModalOpen = false;
+        isNewEntry = true;
+    }   
 
 </script>
 
@@ -102,6 +111,17 @@
     </script>
 {/if}
 
+{#if showSiteAddSuccess}
+  <div class="notification is-success">
+    Statybų objektas pridėtas!
+  </div>
+  <script>
+    setTimeout(() => {
+        window.location.href = '/concreteimones';
+    }, 5000);
+  </script>
+{/if}
+
 <style>
     .grid-container {
         display: grid;
@@ -140,7 +160,13 @@
                                     <p><b>Pavadinimas:</b> {comapany.Name}</p>
                                     <p><b>Adresas:</b> {comapany.Address}</p>
                                     <p><b>Įmonės kodas:</b> {comapany.CompanyCode}</p>
-                                    <b>Įmonės Statybų objektai:</b>
+                                    <p><b>Įmonės Statybų objektai:</b>
+                                    <button type="button" class="button is-small is-info" on:click={() => {
+                                        selectedCompany = comapany;
+                                        isConstructionSiteModalOpen = true;
+                                        isNewEntry = true;
+                                    }}>Pridėti Statybos objektą</button>
+                                    </p>
                                     {#each constructionSites as constructionSite}
                                         {#if constructionSite.CompanyId == comapany.Id}
                                             <p>{constructionSite.Name}, {constructionSite.Address}</p>
@@ -200,6 +226,44 @@
             </div>
         </div>
         <button class="modal-close is-large" aria-label="close" on:click={closeModal}></button>
+    </div>
+{/if}
+
+{#if isConstructionSiteModalOpen}
+    <div class="modal is-active">
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
+        <!-- svelte-ignore a11y-no-static-element-interactions -->
+        <div class="modal-background" on:click={closeConstructionSiteModal}></div>
+        <div class="modal-content" style="background-color: white; font-size:large; padding:3%;">
+            <h2><b>{isNewEntry ? 'Naujo Statybos objekto forma' : 'Statybų objekto redagavimas'}</b></h2>
+            <hr>
+            <div style="margin-top:2%;">
+                <form method="post" action="{isNewEntry ? '?/addconstructionsite' : '?/updateconstructionsite'}">
+                    <input type="hidden" name="id" value={selectedCompany?.Id ? selectedCompany.Id : ''} />
+                    <!-- svelte-ignore a11y-label-has-associated-control -->
+                    <label>Pavadinimas</label>
+                    <input
+                        class="input my-2"
+                        type="text"
+                        
+                        name="name"
+                        required
+                    />
+                    <!-- svelte-ignore a11y-label-has-associated-control -->
+                    <label>Adresas</label>   
+                    <input
+                        class="input my-2"
+                        type="text"
+                        
+                        name="address"
+                        required
+                    />
+                    <button class="button is-primary mt-4 is-fullwidth" type="submit" formaction="{isNewEntry ? '?/addconstructionsite' : '?/updateconstructionsite'}"
+                    >{isNewEntry ? 'Pridėti' : 'Atnaujinti'}</button>
+                </form>
+            </div>
+        </div>
+        <button class="modal-close is-large" aria-label="close" on:click={closeConstructionSiteModal}></button>
     </div>
 {/if}
 
