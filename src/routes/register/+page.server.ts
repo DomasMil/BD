@@ -1,6 +1,5 @@
 import { createUser, getUsers } from '$lib/server/db/tables/user/User';
 //import { createSession } from '$lib/server/sessionStore';
-import { getUserEmailByUserId, getUserIdByUsername, getUserRoleByUserId } from '$lib/server/db/tables/user/User';
 import { fail, redirect, type Actions, type Cookies } from '@sveltejs/kit';
 
 async function performLogin(cookies: Cookies, username: string) {

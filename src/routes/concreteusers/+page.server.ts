@@ -1,6 +1,6 @@
 import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from '../$types';
-import type { MyUserType, UserType } from '$lib/server/db/tables/user/UserType';
+import type { MyUserType } from '$lib/server/db/tables/user/UserType';
 import { getUsers, getUsersByCompanyId, createUser } from '$lib/server/db/tables/user/User';
 import { parse } from 'cookie';
 import { getCompanyNameById, getCompanyById, getCompanies } from '$lib/server/db/tables/company/Company';
@@ -16,6 +16,7 @@ export const load = async ({ request, depends }) => {
     let companies: CompanyType[];
 
     //role = 'teacher' || 
+    console.log("---------------------------------",role);
     if (role == 'admin') {
         users = await getUsers() as MyUserType[];
         companies = await getCompanies() as CompanyType[];

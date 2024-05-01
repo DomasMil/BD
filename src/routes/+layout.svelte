@@ -71,13 +71,9 @@
 				<li><a href="/concreteimones">+Įmonės</a></li>
                 <!-- Adjust links based on user role -->
                 {#if data?.role === 'student'}
-                    <li><a href="/user/results">Rezultatai</a></li>
-                    <li><a href="/user/trophy">Trofėjai</a></li>
+
                 {:else if data?.role === 'teacher'}
-                    <li><a href="/teacher">Testai</a></li>
-                    <li><a href="/teacher/results">Rezultatai</a></li>
-                    <li><a href="/teacher/users">Atlikinėtojų sąrašas</a></li>
-                    <li><a href="/teacher/complains">Skundžiami klausimai</a></li>
+
                 {/if}
             </ul>
         </div>

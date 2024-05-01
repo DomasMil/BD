@@ -1,18 +1,18 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-    import type { UserType } from '$lib/server/db/tables/user/UserType';
+    import type { MyUserType } from '$lib/server/db/tables/user/UserType';
 
     export let data: PageData;
 
-    let users: UserType[];
-	let currentPageUsers : UserType[];
+    let users: MyUserType[];
+	let currentPageUsers : MyUserType[];
 
     let currentPage = 1;
     const itemsPerPage = 5;
  
 
     let isModalOpen = false;
-    let selectedUser: UserType | null = null;
+    let selectedUser: MyUserType | null = null;
 
     // const { exec } = require('child_process');
     // const fs = require('fs');
@@ -116,13 +116,13 @@
                     </thead>
                     <tbody>
                         {#each currentPageUsers as user}
-                            {#if user.id != null && user.role != 'teacher'}
+                            {#if user.id != null && user.role != 'admin'}
                                 <tr>
                                     <td>{user.id}</td>
                                     <td>{user.username}</td>
-                                    <td>{user.points}</td>
-									<td>{user.points}</td>
-									<td>{user.points}</td>
+                                    <td>{user.email}</td>
+									<td>{user.companyname}</td>
+									<td>{user.name}</td>
                                     <!-- <td>{user.register_date.getFullYear() + "-" + (user.register_date.getMonth() + 1) + "-" + user.register_date.getDate()}</td> -->
 									<td><button type="button" class="button is-small is-info" on:click={() =>{
                                         selectedUser = user;

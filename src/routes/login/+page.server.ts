@@ -1,17 +1,14 @@
-import { checkUserCredentials } from '$lib/server/db/tables/user/User';
-//import { mycheckUserCredentials } from '$lib/server/db/tables/user/User';
-//import { createSession } from '$lib/server/sessionStore';
+import { checkUserCredentials, findUserByUsername } from '$lib/server/db/tables/user/User';
+
 import { fail, redirect, type Actions, type Cookies } from '@sveltejs/kit';
 
 async function performLogin(cookies: Cookies, username: string) {
-	//const maxAge = 1000 * 60 * 60 * 24 * 30; // 30 days
-	cookies.set('username', username);
-	cookies.set('role', 'teacher');
-	cookies.set('user_id', '1');
-	cookies.set('company_id', '3');
-	cookies.set('loggedIn', 'true');
-	//const sid = createSession(username, maxAge);
-	//cookies.set('sid', await sid, { maxAge });	
+    const [result] = await findUserByUsername(username);
+    cookies.set('username', result.username);
+    cookies.set('role', result.role);
+    cookies.set('user_id', result.id);
+    cookies.set('company_id', result.companyId);
+    cookies.set('loggedIn', 'true');
 }
 
 export const actions: Actions = {
@@ -25,7 +22,7 @@ export const actions: Actions = {
 			if (!res) {
 				return fail(401, { errorMessage: 'Neteisingas prisijungimo vardas arba slaptažodis' });
 			}
-			performLogin(cookies, username);
+			await performLogin(cookies, username);
 			throw redirect(303, '/');
 		} else {
 			return fail(400, { errorMessage: 'Trūksta prisijungimo vardo arba slaptažodis' });

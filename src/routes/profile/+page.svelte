@@ -1,11 +1,11 @@
 <script lang="ts">
     import type { PageData } from './$types';
-    import type { UserType } from '$lib/server/db/tables/user/UserType';
+    import type { MyUserType } from '$lib/server/db/tables/user/UserType';
 	  import { goto } from '$app/navigation';
 
     export let data: PageData;
 
-    let user: UserType;
+    let user: MyUserType;
 
     $: if (user == null) {
       console.log(data);

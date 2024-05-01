@@ -1,12 +1,12 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-    import type { UserType } from '$lib/server/db/tables/user/UserType';
+    import type { MyUserType } from '$lib/server/db/tables/user/UserType';
 	import type { ActionData } from './$types';
 
     // Variable to store selected date and time
     let selectedDateTime = '';
 
-    let users: UserType[];
+    let users: MyUserType[];
     export let data: PageData;
 	export let form: ActionData;
   

@@ -1,6 +1,6 @@
 import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from '../$types';
-import type { UserType } from '$lib/server/db/tables/user/UserType';
+import type { MyUserType } from '$lib/server/db/tables/user/UserType';
 import { getUsers } from '$lib/server/db/tables/user/User';
 import { parse } from 'cookie';
 
@@ -20,11 +20,11 @@ export const load = (({ request, depends }) => {
 	depends('template:load');
     const cookies = request.headers.get('cookie');
     const { role, user_id } = parse(cookies || '');
-	if (!role?.includes('teacher')) {
+	if (!role?.includes('admin')) {
 		throw error(404, 'Neteisėtas prisijungimas');
 	}
 
-    let users: UserType[] = getUsers();
+    let users: MyUserType[] = getUsers();
 
     return {
         users

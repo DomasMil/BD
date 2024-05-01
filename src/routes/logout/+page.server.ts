@@ -12,5 +12,6 @@ export const load = (({ cookies }) => {
 	cookies.delete('role');
 	cookies.delete('user_id');
 	cookies.delete('loggedIn');
+	cookies.delete('company_id');
 	throw redirect(303, '/');
 }) satisfies PageServerLoad;
