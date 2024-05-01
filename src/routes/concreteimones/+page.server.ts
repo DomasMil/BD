@@ -3,30 +3,57 @@ import type { PageServerLoad } from '../$types';
 import type { MyUserType } from '$lib/server/db/tables/user/UserType';
 import { getUsers } from '$lib/server/db/tables/user/User';
 import { parse } from 'cookie';
+import type { CompanyType } from '$lib/server/db/tables/company/CompanyType';
+import { createCompany, getCompanies, updateCompany } from '$lib/server/db/tables/company/Company';
+import type { ConstructionSiteType } from '$lib/server/db/tables/constructionsite/ConstructionSiteType.js';
+import { getConstructionSites } from '$lib/server/db/tables/constructionsite/ConstructionSite';
+import { fail, redirect, type Actions} from '@sveltejs/kit';
 
-// export const load = (({ locals }) => {
-// 	if (!locals?.role?.includes('teacher')) {
-// 		throw error(404, 'Neteisėtas prisijungimas');
-// 	}
-
-//     let users: UserType[] = getUsers();
-
-//     return {
-//         users
-//     };
-// }) satisfies PageServerLoad;
-
-export const load = (({ request, depends }) => {
+export const load = async ({ request, depends }) => {
 	depends('template:load');
     const cookies = request.headers.get('cookie');
-    const { role, user_id } = parse(cookies || '');
-	if (!role?.includes('admin')) {
+    const { role } = parse(cookies || '');
+	if (!role?.includes('admin' || 'employee')) {
 		throw error(404, 'Neteisėtas prisijungimas');
 	}
+    let companies: CompanyType[];
+    let constructionSites: ConstructionSiteType[];
+    companies = await getCompanies() as CompanyType[];
+    constructionSites = await getConstructionSites() as ConstructionSiteType[];
 
-    let users: MyUserType[] = getUsers();
 
     return {
-        users
+        companies,
+        constructionSites
     };
-}) satisfies PageServerLoad;
+}
+
+export const actions: Actions = {
+
+	addcompany: async ({ request, cookies }) => {
+        const data = await request.formData();
+        const name = data.get('name')?.toString();
+        const address = data.get('address')?.toString();
+        const companyCode = data.get('companyCode')?.toString();
+        if (name && address && companyCode) {
+            createCompany(name, address, companyCode);
+            throw redirect(303, '/concreteimones?addsuccess');
+        } else {
+            return fail(400, { errorMessage: 'Missing information' });
+        }
+	},
+    
+    updatecompany: async ({ request, cookies }) => {
+        const data = await request.formData();
+        const id = Number(data.get('id'));
+        const name = data.get('name')?.toString();
+        const address = data.get('address')?.toString();
+        const companyCode = data.get('companyCode')?.toString();
+        if (id && name && address && companyCode) {
+            updateCompany(id, name, address, companyCode);
+            throw redirect(303, '/concreteimones?updatesuccess');
+        } else {
+            return fail(400, { errorMessage: 'Missing information' });
+        }
+	}   
+};
