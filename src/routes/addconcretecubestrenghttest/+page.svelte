@@ -38,156 +38,157 @@
         <div class="card-content">
             <div class="content">
                 <form method="post" action="?/register">
-                    
-                    <div class="input-container">
-                        <label for="name">Užsakovas:</label>
-                        <input
-                            id="name"
-                            class="input my-2"
-                            type="text"
-                            name="name"
-                            required
-                        />
+                    <div class="container" style="max-width: 50%;">
+                        <div class="input-container">
+                            <label for="name">Užsakovas:</label>
+                            <input
+                                id="name"
+                                class="input my-2"
+                                type="text"
+                                name="name"
+                                required
+                            />
+                        </div>
+                        <div class="select">
+                            <label for="name">Užsakovo statybos objektas:</label>
+                            <select bind:value={users}>
+                                {#each users as user}
+                                    <option value={user.id}>{user.username}</option>
+                                {/each}
+                            </select>
+                        </div>
+                        <div class="select">
+                            <form action="/action_page.php">
+                                <label for="birthdaytime">Bandinių gavimo/pristatymo data:</label>
+                                <input type="datetime-local" id="birthdaytime" name="birthdaytime">
+                                <!-- <input type="submit"> -->
+                            </form>
+                        </div>
+                        <div class="select">
+                            <label for="name">Bandinius pristatė:</label>
+                            <select bind:value={users}>
+                                {#each users as user}
+                                    <option value={user.id}>{user.username}</option>
+                                {/each}
+                            </select>
+                        </div>
+                        <div>
+                            <label for="name">Bandinių pristatymo komentaras:</label>
+                            <textarea class="textarea" placeholder=""></textarea>
+                        </div>
+                        <div class="input-container">
+                            <label for="sampleCount">Pristatytų bandinių kiekis:</label>
+                            <input
+                                id="sampleCount"
+                                class="input my-2"
+                                type="number"
+                                min="1"
+                                name="sampleCount"
+                                required
+                                on:input={updateNumberOfSamples}
+                            />
+                        </div>
+                        <div class="select">
+                            <label for="name">Bandymo tipas:</label>
+                            <select bind:value={users}>
+                                {#each users as user}
+                                    <option value={user.id}>{user.username}</option>
+                                {/each}
+                            </select>
+                        </div>
+                        <div class="input-container">
+                            <label for="name">Išbandytos imties dydis:</label>
+                            <input
+                                id="name"
+                                class="input my-2"
+                                type="text"
+                                name="name"
+                                required
+                            />
+                        </div>
+                        <div class="input-container">
+                            <label for="name">išbrokuotų kubelių kiekis:</label>
+                            <input
+                                id="name"
+                                class="input my-2"
+                                type="text"
+                                name="name"
+                                required
+                            />
+                        </div>
+                        <div class="select">
+                            <label for="name">Betono tipas:</label>
+                            <select bind:value={users}>
+                                {#each users as user}
+                                    <option value={user.id}>{user.username}</option>
+                                {/each}
+                            </select>
+                        </div>
+                        <div class="select">
+                            <form action="/action_page.php">
+                                <label for="birthdaytime">Bandymo data:</label>
+                                <input type="datetime-local" id="birthdaytime" name="birthdaytime">
+                                <!-- <input type="submit"> -->
+                            </form>
+                        </div>
+                        <div class="input-container">
+                            <label for="name">Bandytojas:</label>
+                            <input
+                                id="name"
+                                class="input my-2"
+                                type="text"
+                                name="name"
+                                required
+                            />
+                        </div>
                     </div>
-                    <div class="select">
-                        <label for="name">Užsakovo statybos objektas:</label>
-                        <select bind:value={users}>
-                            {#each users as user}
-                                <option value={user.id}>{user.username}</option>
-                            {/each}
-                        </select>
-                    </div>
-                    <div class="select">
-                        <form action="/action_page.php">
-                            <label for="birthdaytime">Bandinių gavimo/pristatymo data:</label>
-                            <input type="datetime-local" id="birthdaytime" name="birthdaytime">
-                            <!-- <input type="submit"> -->
-                        </form>
-                    </div>
-                    <div class="select">
-                        <label for="name">Bandinius pristatė:</label>
-                        <select bind:value={users}>
-                            {#each users as user}
-                                <option value={user.id}>{user.username}</option>
-                            {/each}
-                        </select>
-                    </div>
-                    <div>
-                        <label for="name">Bandinių pristatymo komentaras:</label>
-                        <textarea class="textarea" placeholder=""></textarea>
-                    </div>
-                    <div class="input-container">
-                        <label for="sampleCount">Pristatytų bandinių kiekis:</label>
-                        <input
-                            id="sampleCount"
-                            class="input my-2"
-                            type="number"
-                            min="1"
-                            name="sampleCount"
-                            required
-                            on:input={updateNumberOfSamples}
-                        />
-                    </div>
-                    <div class="select">
-                        <label for="name">Bandymo tipas:</label>
-                        <select bind:value={users}>
-                            {#each users as user}
-                                <option value={user.id}>{user.username}</option>
-                            {/each}
-                        </select>
-                    </div>
-                    <div class="input-container">
-                        <label for="name">Išbandytos imties dydis:</label>
-                        <input
-                            id="name"
-                            class="input my-2"
-                            type="text"
-                            name="name"
-                            required
-                        />
-                    </div>
-                    <div class="input-container">
-                        <label for="name">išbrokuotų kubelių kiekis:</label>
-                        <input
-                            id="name"
-                            class="input my-2"
-                            type="text"
-                            name="name"
-                            required
-                        />
-                    </div>
-                    <div class="select">
-                        <label for="name">Betono tipas:</label>
-                        <select bind:value={users}>
-                            {#each users as user}
-                                <option value={user.id}>{user.username}</option>
-                            {/each}
-                        </select>
-                    </div>
-                    <div class="select">
-                        <form action="/action_page.php">
-                            <label for="birthdaytime">Bandymo data:</label>
-                            <input type="datetime-local" id="birthdaytime" name="birthdaytime">
-                            <!-- <input type="submit"> -->
-                        </form>
-                    </div>
-                    <div class="input-container">
-                        <label for="name">Bandytojas:</label>
-                        <input
-                            id="name"
-                            class="input my-2"
-                            type="text"
-                            name="name"
-                            required
-                        />
-                    </div>
-
-                    <table class="table is-fullwidth">
-                        <thead>
-                            <tr>
-                                <th>Bandino NR.</th>
-                                <th class="center-text">Skerspjūvio matmenys</th>
-                                <th>Ardančioji jėga F, kN</th>
-                                <th>Stipris gniuždant fc, MPa</th>
-                                <th>Pastabos</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {#each [...Array(numberOfSamples).keys()] as index}
+                    <div class="container" style="max-width: 80%;">
+                        <table class="table is-fullwidth">
+                            <thead>
                                 <tr>
-                                    <td>
-                                        <input type="text" name={`bandino-${index}`} class="input" />
-                                    </td>
-                                    <td>
-                                        <div class="field is-flex">
-                                            <div>
-                                                <label class="label">a</label>
-                                                {#each [1, 2, 3, 4] as subIndex}
-                                                    <input type="text" name={`skerspjūvio-a-${index}-${subIndex}`} class="input skerspjūvio-input" />
-                                                {/each}
-                                            </div>
-                                            <div>
-                                                <label class="label">b</label>
-                                                {#each [1, 2, 3, 4] as subIndex}
-                                                    <input type="text" name={`skerspjūvio-b-${index}-${subIndex}`} class="input skerspjūvio-input" />
-                                                {/each}
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <input type="text" name={`ardancioji-${index}`} class="input" />
-                                    </td>
-                                    <td>
-                                        <input type="text" name={`stipris-${index}`} class="input" />
-                                    </td>
-                                    <td>
-                                        <textarea name={`pastabos-${index}`} class="textarea"></textarea>
-                                    </td>
+                                    <th>Bandino NR.</th>
+                                    <th class="center-text">Skerspjūvio matmenys</th>
+                                    <th>Ardančioji jėga F, kN</th>
+                                    <th>Stipris gniuždant fc, MPa</th>
+                                    <th>Pastabos</th>
                                 </tr>
-                            {/each}
-                        </tbody>
-                    </table>
-
+                            </thead>
+                            <tbody>
+                                {#each [...Array(numberOfSamples).keys()] as index}
+                                    <tr>
+                                        <td>
+                                            <input type="text" name={`bandino-${index}`} class="input" />
+                                        </td>
+                                        <td>
+                                            <div class="field is-flex">
+                                                <div>
+                                                    <label class="label">a</label>
+                                                    {#each [1, 2, 3, 4] as subIndex}
+                                                        <input type="text" name={`skerspjūvio-a-${index}-${subIndex}`} class="input skerspjūvio-input" />
+                                                    {/each}
+                                                </div>
+                                                <div>
+                                                    <label class="label">b</label>
+                                                    {#each [1, 2, 3, 4] as subIndex}
+                                                        <input type="text" name={`skerspjūvio-b-${index}-${subIndex}`} class="input skerspjūvio-input" />
+                                                    {/each}
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <input type="text" name={`ardancioji-${index}`} class="input" />
+                                        </td>
+                                        <td>
+                                            <input type="text" name={`stipris-${index}`} class="input" />
+                                        </td>
+                                        <td>
+                                            <textarea name={`pastabos-${index}`} class="textarea"></textarea>
+                                        </td>
+                                    </tr>
+                                {/each}
+                            </tbody>
+                        </table>
+                    </div>
 
                     
 
@@ -211,6 +212,8 @@
     display: inline-block;
     width: calc(50% - 5px); /* Adjust as needed */
     margin-right: 10px;
+    max-width: 50%;
+    min-width: 100px;
 }
 
 .input-container label {
@@ -242,7 +245,8 @@
 
 
 .is-flex > div:not(:last-child) {
-    margin-right: -200px; /* Adjust this value as needed */
+    margin-right: auto; /* Adjust this value as needed */
+    
 }
 
 .field.is-flex {

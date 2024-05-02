@@ -4,6 +4,16 @@
 	import type { LayoutServerData } from './$types';
 	import { onNavigate } from '$app/navigation';
 
+
+
+	let isSideMenuOpen: boolean = false;
+	let isLstDropdownOpen = false;
+	let isLoginPage = true;
+
+	$: {
+        isLoginPage = $page.url.href.includes('/login');
+    }
+
 	onNavigate((navigation) => {
 		if (!(document as any).startViewTransition) return;
 
@@ -14,20 +24,22 @@
 			});
 		});
 	});
-
-	let isSideMenuOpen: boolean = false;
-
+	
 	function toggleSideMenu() {
         isSideMenuOpen = !isSideMenuOpen;
-		
     }
+
+	function toggleLstDropdown() {
+	isLstDropdownOpen = !isLstDropdownOpen;
+	}	
 
 	export let data: LayoutServerData;
 </script>
+
 <header>
 	<nav class="navbar is-primary px-4" style="aria-label: main navigation">
 		<div class="navbar-brand pr-4">
-			<span class="is-size-3 has-text-weight-semibold">Quizeris</span>
+			<span class="is-size-3 has-text-weight-semibold">Augh</span>
 		</div>
 		<div class="navbar-menu">
 		</div>
@@ -65,8 +77,14 @@
     <aside class="column is-2" style={isSideMenuOpen ? "display: block;" : "display: none;"}>
         <div class="menu">
             <ul class="menu-list">
-				<li><a href="/concretecubestrenghttest">+Kubelinio stiprio bandymai</a></li>
-				<li><a href="/addconcretecubestrenghttest">+Sukurti naują kubelinio stiprio bandymą</a></li>
+				<li>
+					<!-- svelte-ignore a11y-invalid-attribute -->
+					<a href="#" on:click={toggleLstDropdown}>+Betonas</a>
+					<ul style={isLstDropdownOpen ? "display: block;" : "display: none;"}>
+						<li><a href="/concretecubestrenghttest">+Kubelinio stiprio bandymai</a></li>
+						<li><a href="/addconcretecubestrenghttest">+Sukurti naują kubelinio stiprio bandymą</a></li>
+					</ul>
+				</li>
 				<li><a href="/concreteusers">+Vartotojai</a></li>
 				<li><a href="/concreteimones">+Įmonės</a></li>
                 <!-- Adjust links based on user role -->
@@ -83,7 +101,9 @@
     <main class="column" style={isSideMenuOpen ? "margin-left: -0.5rem;" : "margin-left: 0;"}>
         <!-- Your existing header/navigation bar code... -->
 		<!-- Button to toggle the side menu -->
-<button class="button is-info" on:click={toggleSideMenu}>Toggle Side Menu</button>
+		{#if !isLoginPage}
+			<button class="button is-info" on:click={toggleSideMenu}>Toggle Side Menu</button>
+		{/if}
         <!-- Content goes here -->
         <slot />
     </main>

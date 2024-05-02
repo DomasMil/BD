@@ -5,7 +5,6 @@
 	let password = 'teacher';
 
 	export let form: ActionData;
-
 	
 </script>
 
