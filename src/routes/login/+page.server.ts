@@ -4,6 +4,7 @@ import { fail, redirect, type Actions, type Cookies } from '@sveltejs/kit';
 
 async function performLogin(cookies: Cookies, username: string) {
     const [result] = await findUserByUsername(username);
+	cookies.set('name', result.name);
     cookies.set('username', result.username);
     cookies.set('role', result.role);
     cookies.set('user_id', result.id);

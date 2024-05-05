@@ -2,26 +2,40 @@
 	import type { PageData } from './$types';
     import type { MyUserType } from '$lib/server/db/tables/user/UserType';
 	import type { ActionData } from './$types';
+	import type { CompanyType } from '$lib/server/db/tables/company/CompanyType';
+	import type { ConstructionSiteType } from '$lib/server/db/tables/constructionsite/ConstructionSiteType';
+	import { get } from 'svelte/store';
 
     // Variable to store selected date and time
     let selectedDateTime = '';
 
     let users: MyUserType[];
+    let companies: CompanyType[];
+    let constructionSites: ConstructionSiteType[]
+    let selectedCompanyId: number; // Variable to store the ID of the selected company
+    let selectedConstructionSiteId: number; // Variable to store the ID of the selected construction site
+    let selectedTestType: string; // Variable to store the selected test type
+    let numberOfSamples = 0; // Variable to store the number of samples
     export let data: PageData;
-	export let form: ActionData;
+	//export let form: ActionData;
   
     $: if (users == null) {
         users = data.users;
-        //console.log(users);
     }
 
-        // Define a variable to hold the count of iterations
-        let numberOfSamples = 1; // Default value
+    $: if (companies == null) {
+        companies = data.companies;
+    }
 
-    // Function to update the count of iterations based on the input value
-    function updateNumberOfSamples(event: { target: { value: string; }; }) {
-    numberOfSamples = parseInt(event.target.value) || 1; // Default to 1 if parsing fails
-}
+    $: if (constructionSites == null) {
+        constructionSites = data.constructionSites;
+    }
+
+
+    const selectMap = new Map([
+        ["Pradinis", 3],
+        ["Nuolatinis", 1]
+    ]);
 
 </script>
 
@@ -37,44 +51,41 @@
         </header>
         <div class="card-content">
             <div class="content">
-                <form method="post" action="?/register">
+                <form method="post" action="?/addStrengthTest">
                     <div class="container" style="max-width: 50%;">
-                        <div class="input-container">
-                            <label for="name">Užsakovas:</label>
-                            <input
-                                id="name"
-                                class="input my-2"
-                                type="text"
-                                name="name"
-                                required
-                            />
-                        </div>
                         <div class="select">
-                            <label for="name">Užsakovo statybos objektas:</label>
-                            <select bind:value={users}>
-                                {#each users as user}
-                                    <option value={user.id}>{user.username}</option>
+                            <label for="name">Užsakovas:</label>
+                            <select bind:value={selectedCompanyId} name="clientCompany" required>
+                                {#each companies as company}
+                                    <option value={company.Id}>{company.Name}</option>
                                 {/each}
                             </select>
                         </div>
                         <div class="select">
-                            <form action="/action_page.php">
-                                <label for="birthdaytime">Bandinių gavimo/pristatymo data:</label>
-                                <input type="datetime-local" id="birthdaytime" name="birthdaytime">
-                                <!-- <input type="submit"> -->
-                            </form>
+                            <label for="name">Užsakovo statybos objektas:</label>
+                            <select bind:value={selectedConstructionSiteId} name="companyConstructionSite" required>
+                                {#each constructionSites as constructionSite}
+                                    {#if constructionSite.CompanyId === selectedCompanyId}
+                                        <option value={constructionSite.Id}>{`${constructionSite.Name}, ${constructionSite.Address}`}</option>
+                                    {/if}
+                                {/each}
+                            </select>
+                        </div>
+                        <div class="date">
+                            <label for="receivedDate">Bandinių gavimo/pristatymo data:</label>
+                            <input type="date" name="receivedDate" required>
                         </div>
                         <div class="select">
                             <label for="name">Bandinius pristatė:</label>
-                            <select bind:value={users}>
-                                {#each users as user}
-                                    <option value={user.id}>{user.username}</option>
-                                {/each}
+                            <select name="deliveredBy">
+                                    <option value="Užsakovas">{"Užsakovas"}</option>
+                                    <option value="Užsakovo įgaliotas atstovas">{"Užsakovo įgaliotas atstovas"}</option>
+                                    <option value="Vykdytojas">{"Vykdytojas"}</option>
                             </select>
                         </div>
                         <div>
                             <label for="name">Bandinių pristatymo komentaras:</label>
-                            <textarea class="textarea" placeholder=""></textarea>
+                            <textarea class="textarea" name="sampleReceivedComment" value="bandiniai atvežti tinkamai supakuoti, apsaugoto nuo drėgmės išgaravimo, bandinių geometrija ir matmenys vizualiai atitinka reikalavimus."></textarea>
                         </div>
                         <div class="input-container">
                             <label for="sampleCount">Pristatytų bandinių kiekis:</label>
@@ -85,25 +96,27 @@
                                 min="1"
                                 name="sampleCount"
                                 required
-                                on:input={updateNumberOfSamples}
+                                
                             />
                         </div>
                         <div class="select">
-                            <label for="name">Bandymo tipas:</label>
-                            <select bind:value={users}>
-                                {#each users as user}
-                                    <option value={user.id}>{user.username}</option>
-                                {/each}
+                            <label for="name">Bandymo tipas: </label>
+                            <select  id="testTypeId" bind:value={selectedTestType} name="testType">
+                                <option value="Pradinis">{"Pradinis"}</option>
+                                <option value="Nuolatinis">{"Nuolatinis"}</option>
                             </select>
                         </div>
                         <div class="input-container">
                             <label for="name">Išbandytos imties dydis:</label>
-                            <input
-                                id="name"
+                            <input     
+                                id="acceptedSampleCountInput"
                                 class="input my-2"
-                                type="text"
-                                name="name"
+                                type="number"
+                                name="acceptedSampleCount" 
+                                value={selectMap.get(selectedTestType)}
+                                readonly
                                 required
+                                
                             />
                         </div>
                         <div class="input-container">
@@ -111,25 +124,23 @@
                             <input
                                 id="name"
                                 class="input my-2"
-                                type="text"
-                                name="name"
+                                type="number"
+                                min="0"
+                                max={selectMap.get(selectedTestType)}
+                                name="rejectedSampleCount"
                                 required
                             />
                         </div>
                         <div class="select">
                             <label for="name">Betono tipas:</label>
-                            <select bind:value={users}>
-                                {#each users as user}
-                                    <option value={user.id}>{user.username}</option>
-                                {/each}
+                            <select name="concreteType">
+                                <option value="Lengvasis">{"Lengvasis"}</option>
+                                <option value="Sunkusis arba normalusis">{"Sunkusis arba normalusis"}</option>
                             </select>
                         </div>
-                        <div class="select">
-                            <form action="/action_page.php">
-                                <label for="birthdaytime">Bandymo data:</label>
-                                <input type="datetime-local" id="birthdaytime" name="birthdaytime">
-                                <!-- <input type="submit"> -->
-                            </form>
+                        <div class="date">
+                                <label for="testDate">Bandymo data:</label>
+                                <input type="date" name="testExecutionDate" required>
                         </div>
                         <div class="input-container">
                             <label for="name">Bandytojas:</label>
@@ -137,8 +148,32 @@
                                 id="name"
                                 class="input my-2"
                                 type="text"
-                                name="name"
+                                name="displayOnnyTestExecutorId"
+                                value={data.name}
                                 required
+                                readonly
+                            />
+                        </div>
+                        <div class="input-container">
+                            <input
+                                id="name"
+                                class="input my-2"
+                                type="hidden"
+                                name="testExecutorId"
+                                value={data.user_id}
+                                required
+                                readonly
+                            />
+                        </div>
+                        <div class="input-container">
+                            <input
+                                id="name"
+                                class="input my-2"
+                                type="hidden"
+                                name="testExecutorCompanyId"
+                                value={data.company_id}
+                                required
+                                readonly
                             />
                         </div>
                     </div>
@@ -147,58 +182,59 @@
                             <thead>
                                 <tr>
                                     <th>Bandino NR.</th>
-                                    <th class="center-text">Skerspjūvio matmenys</th>
+                                    <th class="center-text">Skerspjūvio matmenys, mm</th>
                                     <th>Ardančioji jėga F, kN</th>
                                     <th>Stipris gniuždant fc, MPa</th>
                                     <th>Pastabos</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {#each [...Array(numberOfSamples).keys()] as index}
+                                {#each [...Array(selectMap.get(selectedTestType)).keys()] as index}
                                     <tr>
                                         <td>
-                                            <input type="text" name={`bandino-${index}`} class="input" />
+                                            <input type="text" name={`bandino-${index}`} value={index+1} disabled class="input"  />
                                         </td>
                                         <td>
                                             <div class="field is-flex">
                                                 <div>
                                                     <label class="label">a</label>
-                                                    {#each [1, 2, 3, 4] as subIndex}
-                                                        <input type="text" name={`skerspjūvio-a-${index}-${subIndex}`} class="input skerspjūvio-input" />
+                                                    {#each [1, 2, 3, 4, 5, 6] as subIndex}
+                                                        <input type="number" min=0 step=0.001 name={`skerspjūvio-a-${index}-${subIndex}`} value="{(index*subIndex+2)/8*15}" class="input skerspjūvio-input"  />
                                                     {/each}
                                                 </div>
                                                 <div>
                                                     <label class="label">b</label>
-                                                    {#each [1, 2, 3, 4] as subIndex}
-                                                        <input type="text" name={`skerspjūvio-b-${index}-${subIndex}`} class="input skerspjūvio-input" />
+                                                    {#each [1, 2, 3, 4, 5, 6] as subIndex}
+                                                        <input type="number" min=0 step=0.001 name={`skerspjūvio-b-${index}-${subIndex}`} value="{(index*subIndex+2)/8*25}" class="input skerspjūvio-input"  />
                                                     {/each}
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
-                                            <input type="text" name={`ardancioji-${index}`} class="input" />
+                                            <input type="number" min=0 step=0.001 name={`ardancioji-${index}`} value="{(index+2)/8*25}" class="input"  />
                                         </td>
                                         <td>
-                                            <input type="text" name={`stipris-${index}`} class="input" />
+                                            <input type="number" min=0 step=0.001 name={`stipris-${index}`} value="{(index+2*4)/8*25}" class="input"  />
                                         </td>
                                         <td>
-                                            <textarea name={`pastabos-${index}`} class="textarea"></textarea>
+                                            <textarea name={`pastabos-${index}`} value="{index}concrete" class="textarea" ></textarea>
                                         </td>
                                     </tr>
                                 {/each}
                             </tbody>
                         </table>
                     </div>
-
-                    
-
-                    <hr />
-                    <a class="button mt-4 mr-3 is-fullwidth" href="/login">Prisijungti(Sukurti)</a>
+                    <button class="button is-primary mt-4 is-fullwidth" type="submit" formaction="?/addStrengthTest"
+                    >Pridėti</button
+                >
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+
+
 
 
 <style>
@@ -222,7 +258,7 @@
     white-space: nowrap; /* Prevent label text from wrapping */
 }
 
-.select {
+.select, .date {
     display: flex;
     align-items: center;
     margin-bottom: 10px; /* Add margin bottom to create space between input fields */
