@@ -158,16 +158,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- {#each selectedUser.attempts as attempt}
-                            {#if attempt.id != null}
-                                <tr>
-                                    <td>{attempt.id}</td>
-                                    <td>{attempt.quiz.title}</td>
-                                    <td>{attempt.date.getFullYear() + "-" + (attempt.date.getMonth() + 1) + "-" + attempt.date.getDate()}</td>
-                                    <td>{attempt.result}/{attempt.quiz.questions?.length ?? "NaN"}</td>
-                                </tr>
-                            {/if}
-                        {/each} -->
                     </tbody>
                 </table>
             </div>
