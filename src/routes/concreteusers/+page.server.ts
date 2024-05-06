@@ -15,9 +15,8 @@ export const load = async ({ request, depends }) => {
     let users: MyUserType[];
     let companies: CompanyType[];
 
-    //role = 'teacher' || 
     console.log("---------------------------------",role);
-    if (role == 'admin') {
+    if (role == 'admin' || role == 'employee') {
         users = await getUsers() as MyUserType[];
         companies = await getCompanies() as CompanyType[];
     }
@@ -58,7 +57,7 @@ export const actions: Actions = {
         const role = data.get('role')?.toString();
 
         if (name && username && password && email && company && role) {
-            createUser(name, username, password, email, Number(company), role);
+            createUser(username, password, name, email, Number(company), role);
            return {
                 status: 303,
                 headers: {

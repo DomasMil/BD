@@ -13,7 +13,7 @@ export const load = async ({ request, depends }) => {
 	depends('template:load');
     const cookies = request.headers.get('cookie');
     const { role } = parse(cookies || '');
-	if (!role?.includes('admin' || 'employee')) {
+	if (!role?.includes('admin' && 'employee')) {
 		throw error(404, 'Neteisėtas prisijungimas');
 	}
     let companies: CompanyType[];

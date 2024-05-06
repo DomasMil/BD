@@ -184,7 +184,7 @@
                                     <th>Bandino NR.</th>
                                     <th class="center-text">Skerspjūvio matmenys, mm</th>
                                     <th>Ardančioji jėga F, kN</th>
-                                    <th>Stipris gniuždant fc, MPa</th>
+                                    <!-- <th>Stipris gniuždant fc, MPa</th> -->
                                     <th>Pastabos</th>
                                 </tr>
                             </thead>
@@ -192,32 +192,32 @@
                                 {#each [...Array(selectMap.get(selectedTestType)).keys()] as index}
                                     <tr>
                                         <td>
-                                            <input type="text" name={`bandino-${index}`} value={index+1} disabled class="input"  />
+                                            <input type="text" name={`cubeSample-${index}`} value={index+1} disabled class="input"  />
                                         </td>
                                         <td>
                                             <div class="field is-flex">
                                                 <div>
                                                     <label class="label">a</label>
                                                     {#each [1, 2, 3, 4, 5, 6] as subIndex}
-                                                        <input type="number" min=0 step=0.001 name={`skerspjūvio-a-${index}-${subIndex}`} value="{(index*subIndex+2)/8*15}" class="input skerspjūvio-input"  />
+                                                        <input type="number" min=0 step=0.001 name={`crossSection-a-${index}-${subIndex}`} value="{150}" class="input crossSection-input"  />
                                                     {/each}
                                                 </div>
                                                 <div>
                                                     <label class="label">b</label>
                                                     {#each [1, 2, 3, 4, 5, 6] as subIndex}
-                                                        <input type="number" min=0 step=0.001 name={`skerspjūvio-b-${index}-${subIndex}`} value="{(index*subIndex+2)/8*25}" class="input skerspjūvio-input"  />
+                                                        <input type="number" min=0 step=0.001 name={`crossSection-b-${index}-${subIndex}`} value="{150}" class="input crossSection-input"  />
                                                     {/each}
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
-                                            <input type="number" min=0 step=0.001 name={`ardancioji-${index}`} value="{(index+2)/8*25}" class="input"  />
+                                            <input type="number" min=0 step=0.001 name={`destructivePower-${index}`} value="{550}" class="input"  />
                                         </td>
+
+                                            <input type="hidden" min=0 step=0.001 name={`crushingStrength-${index}`} value="{(index+2*4)/8*25}" class="input"  />
+
                                         <td>
-                                            <input type="number" min=0 step=0.001 name={`stipris-${index}`} value="{(index+2*4)/8*25}" class="input"  />
-                                        </td>
-                                        <td>
-                                            <textarea name={`pastabos-${index}`} value="{index}concrete" class="textarea" ></textarea>
+                                            <textarea name={`Comment-${index}`}  class="textarea" ></textarea>
                                         </td>
                                     </tr>
                                 {/each}
@@ -244,7 +244,7 @@
     margin-bottom: 10px; /* Add margin bottom to create space between input fields */
 }
 
-.skerspjūvio-input {
+.crossSection-input {
     display: inline-block;
     width: calc(50% - 5px); /* Adjust as needed */
     margin-right: 10px;

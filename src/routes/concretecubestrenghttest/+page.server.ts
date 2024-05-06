@@ -20,7 +20,7 @@ export const load = (({ request, depends }) => {
 	depends('template:load');
     const cookies = request.headers.get('cookie');
     const { role, user_id } = parse(cookies || '');
-	if (!role?.includes('admin')) {
+	if (!role?.includes('admin' && 'employee')) {
 		throw error(404, 'Neteisėtas prisijungimas');
 	}
 

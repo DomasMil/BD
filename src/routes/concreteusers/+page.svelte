@@ -75,18 +75,6 @@ onMount(() => {
         </header>
         <div class="card-content">
             <div style="display: flex; align-items: center; justify-content: space-between;">
-                <div class="field" style="margin-right: 20px;">
-                    <label class="label" for="userType"></label>
-                    <div class="control">
-                        <div class="select">
-                            <select>
-                                <option>Darbuotojai</option>
-                                <option>Klientai</option>
-                                <option>Administratoriai</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
                 <!-- Button to add -->
                 <button type="button" class="button is-primary mr-4" style="margin-top: 20px" on:click={() =>{
                     //selectedUser = user;
