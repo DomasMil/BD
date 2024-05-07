@@ -147,28 +147,28 @@
 
         <div class="card-content">
             <div class="content grid-container">
-                {#each currentPagecomapanies as comapany}
-                    {#if comapany.Id != null && (data.role == 'admin' || data.role == 'employee')}
+                {#each currentPagecomapanies as company}
+                    {#if company.Id != null && (data.role == 'admin' || data.role == 'employee')}
                         <div class="card">
                             <div class="card-content">
                                 <button type="button" class="button is-small is-info" on:click={() => {
-                                    selectedCompany = comapany;
+                                    selectedCompany = company;
                                     isModalOpen = true;
                                     isNewEntry = false;
                                 }}>Redaguoti</button>
                                 <div class="content">
-                                    <p><b>Pavadinimas:</b> {comapany.Name}</p>
-                                    <p><b>Adresas:</b> {comapany.Address}</p>
-                                    <p><b>Įmonės kodas:</b> {comapany.CompanyCode}</p>
+                                    <p><b>Pavadinimas:</b> {company.Name}</p>
+                                    <p><b>Adresas:</b> {company.Address}</p>
+                                    <p><b>Įmonės kodas:</b> {company.CompanyCode}</p>
                                     <p><b>Įmonės Statybų objektai:</b>
                                     <button type="button" class="button is-small is-info" on:click={() => {
-                                        selectedCompany = comapany;
+                                        selectedCompany = company;
                                         isConstructionSiteModalOpen = true;
                                         isNewEntry = true;
                                     }}>Pridėti Statybos objektą</button>
                                     </p>
                                     {#each constructionSites as constructionSite}
-                                        {#if constructionSite.CompanyId == comapany.Id}
+                                        {#if constructionSite.CompanyId == company.Id}
                                             <p>{constructionSite.Name}, {constructionSite.Address}</p>
                                         {/if}
                                     {/each}

@@ -93,14 +93,8 @@
     }
 
     let timestamp = Date.now();
-
-  function refresh() {
-    timestamp = Date.now();
-    goto(`/concretecubestrenghttest?timestamp=${timestamp}`);
-  }
 </script>
 
-<button on:click={refresh}>Refresh</button>
 <div class="px-4 mt-5">
     <div class="card">
         <header class="card-header">
