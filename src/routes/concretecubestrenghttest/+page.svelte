@@ -1,18 +1,21 @@
 <script lang="ts">
 	import type { PageData } from './$types';
     import type { MyUserType } from '$lib/server/db/tables/user/UserType';
+	import type { StrengthTestListType } from '$lib/server/db/tables/strengthtest/StrengthTestType';
+    import { goto } from '$app/navigation';
 
     export let data: PageData;
 
-    let users: MyUserType[];
-	let currentPageUsers : MyUserType[];
+    //let users: MyUserType[];
+    let strengthTests: StrengthTestListType[];
+	let currentPageStrengthTests : StrengthTestListType[];
 
     let currentPage = 1;
     const itemsPerPage = 5;
  
 
     let isModalOpen = false;
-    let selectedUser: MyUserType | null = null;
+    let selectedStrengthTest: StrengthTestListType | null = null;
 
     // const { exec } = require('child_process');
     // const fs = require('fs');
@@ -60,19 +63,21 @@
 //     });
 // }
 
-    $: if (users == null) {
-        users = data.users;
+    $: if (strengthTests == null) {
+        strengthTests = data.strengthTests;
         //console.log(users);
     }
+
+    
 
 	$: {
 		const startIndex = (currentPage - 1) * itemsPerPage;
     	const endIndex = startIndex + itemsPerPage;
-    	currentPageUsers = users.slice(startIndex, endIndex);
+    	currentPageStrengthTests = strengthTests.slice(startIndex, endIndex);
     }
 
     function nextPage() {
-        if (currentPage < Math.ceil(users.length / itemsPerPage)) {
+        if (currentPage < Math.ceil(strengthTests.length / itemsPerPage)) {
             currentPage += 1;
         }
     }
@@ -87,9 +92,15 @@
         isModalOpen = false;
     }
 
+    let timestamp = Date.now();
+
+  function refresh() {
+    timestamp = Date.now();
+    goto(`/concretecubestrenghttest?timestamp=${timestamp}`);
+  }
 </script>
 
-
+<button on:click={refresh}>Refresh</button>
 <div class="px-4 mt-5">
     <div class="card">
         <header class="card-header">
@@ -109,27 +120,27 @@
                             <th>Įmonė</th>
                             <th>Objekto adresas</th>
                             <th>Testo tipas</th>
-                            <th>Atlikomo data</th>
+                            <th>Atlikimo data</th>
 							<th>Bandytojo vardas</th>
 							<th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        {#each currentPageUsers as user}
-                            {#if user.id != null && user.role != 'admin'}
+                        {#each currentPageStrengthTests as strengthTest}
+                            <!-- {#if user.id != null && user.role != 'admin'} -->
                                 <tr>
-                                    <td>{user.id}</td>
-                                    <td>{user.username}</td>
-                                    <td>{user.email}</td>
-									<td>{user.companyname}</td>
-									<td>{user.name}</td>
-                                    <!-- <td>{user.register_date.getFullYear() + "-" + (user.register_date.getMonth() + 1) + "-" + user.register_date.getDate()}</td> -->
+                                    <td>{strengthTest.TestProtocolNumber}</td>
+                                    <td>{strengthTest.ClientCompanyId.Name}</td>
+                                    <td>{strengthTest.ClientConstructionSiteId.Address}</td>
+                                    <td>{strengthTest.TestType}</td>
+									<td>{`${strengthTest.TestSamplesReceivedDate.getFullYear()}-${('0' + (strengthTest.TestSamplesReceivedDate.getMonth() + 1)).slice(-2)}-${('0' + strengthTest.TestSamplesReceivedDate.getDate()).slice(-2)}`}</td>
+									<td>{strengthTest.TestExecutedByUserId.name}</td>
 									<td><button type="button" class="button is-small is-info" on:click={() =>{
-                                        selectedUser = user;
+                                        selectedStrengthTest = strengthTest;
                                         isModalOpen = true;
                                     }}>{"user.attempts.length"}</button></td>
                                 </tr>
-                            {/if}
+                            <!-- {/if} -->
                         {/each}
                     </tbody>
                 </table>
@@ -139,7 +150,7 @@
 </div>
 
 
-{#if isModalOpen && selectedUser != null}
+{#if isModalOpen && selectedStrengthTest != null}
     <div class="modal is-active">
         <!-- svelte-ignore a11y-click-events-have-key-events -->
         <!-- svelte-ignore a11y-no-static-element-interactions -->
@@ -168,9 +179,9 @@
 
 <div class="pagination" role="navigation" aria-label="pagination">
     <button class="pagination-previous" disabled={currentPage === 1} on:click={prevPage}>Previous</button>
-    <button class="pagination-next" disabled={currentPage === Math.ceil(users.length / itemsPerPage)} on:click={nextPage}>Next page</button>
+    <button class="pagination-next" disabled={currentPage === Math.ceil(strengthTests.length / itemsPerPage)} on:click={nextPage}>Next page</button>
     <ul class="pagination-list">
-        {#each Array.from({ length: Math.ceil(users.length / itemsPerPage) }) as _, i}
+        {#each Array.from({ length: Math.ceil(strengthTests.length / itemsPerPage) }) as _, i}
             <li>
 <button class="pagination-link" aria-label="Goto page {i + 1}" aria-current={currentPage === (i + 1)} disabled={currentPage === (i + 1)} on:click={() => { currentPage = i + 1; }}>{i + 1}</button>
             </li>
