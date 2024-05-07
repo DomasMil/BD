@@ -26,7 +26,6 @@ export type StrengthTestType = {
 }
 
 export type StrengthTestListType = {
-    [x: string]: CompanyType
     Id:            number,
     TestProtocolNumber: string,
     ClientCompanyId: CompanyType,

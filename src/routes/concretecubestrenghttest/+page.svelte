@@ -3,7 +3,7 @@
     import type { MyUserType } from '$lib/server/db/tables/user/UserType';
 	import type { StrengthTestListType } from '$lib/server/db/tables/strengthtest/StrengthTestType';
     import { goto } from '$app/navigation';
-
+    
     export let data: PageData;
 
     //let users: MyUserType[];
@@ -68,8 +68,6 @@
         //console.log(users);
     }
 
-    
-
 	$: {
 		const startIndex = (currentPage - 1) * itemsPerPage;
     	const endIndex = startIndex + itemsPerPage;
@@ -91,8 +89,6 @@
     function closeModal() {
         isModalOpen = false;
     }
-
-    let timestamp = Date.now();
 </script>
 
 <div class="px-4 mt-5">
@@ -129,10 +125,17 @@
                                     <td>{strengthTest.TestType}</td>
 									<td>{`${strengthTest.TestSamplesReceivedDate.getFullYear()}-${('0' + (strengthTest.TestSamplesReceivedDate.getMonth() + 1)).slice(-2)}-${('0' + strengthTest.TestSamplesReceivedDate.getDate()).slice(-2)}`}</td>
 									<td>{strengthTest.TestExecutedByUserId.name}</td>
-									<td><button type="button" class="button is-small is-info" on:click={() =>{
+									<!-- <td><button type="button" class="button is-small is-info" on:click={() =>{
                                         selectedStrengthTest = strengthTest;
                                         isModalOpen = true;
-                                    }}>{"user.attempts.length"}</button></td>
+                                    }}>{"user.attempts.length"}</button></td> -->
+                                    <td>
+                                        <button type="button" class="button is-small is-info" on:click={() =>{
+                                            selectedStrengthTest = strengthTest;
+                                            goto(`/concretecubestrenghttest/${strengthTest.Id}`);
+                                    }}>
+                                        {"Išsamiau"}</button>
+                                    </td>
                                 </tr>
                             <!-- {/if} -->
                         {/each}

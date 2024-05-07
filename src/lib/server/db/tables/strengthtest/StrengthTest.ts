@@ -1,5 +1,7 @@
 import { pool } from '../../index';
+import { writable } from 'svelte/store';
 
+export const strengthTestStore = writable({});
 
 export async function getStrenghtTests() {
     const [result] = await pool.query('SELECT * FROM strength_test')

@@ -31,19 +31,19 @@ export const load = async ({ request, depends }) => {
 		throw error(404, 'Neteisėtas prisijungimas');
 	}
 
-    let users: MyUserType[] = getUsers();
-    let strengthTests: StrengthTestListType[] = await getStrenghtTests();
+    let users: MyUserType[] = await getUsers() as MyUserType[];
+    let strengthTests: StrengthTestListType[] = await getStrenghtTests() as StrengthTestListType[];
      await Promise.all(strengthTests.map(async (test) => {
-         let [clientCompany]: CompanyType[] = await getCompanyById(Number(test.ClientCompanyId)) as CompanyType[];
-          test.ClientCompanyId = clientCompany;
-           let [employeeCompany]: CompanyType[] = await getCompanyById(Number(test.EmployeeCompanyId)) as CompanyType[];
-           test.EmployeeCompanyId = employeeCompany;
-            let [testExecutedByUser]: MyUserType[] = await getUserById(Number(test.TestExecutedByUserId)) as MyUserType[];
-            test.TestExecutedByUserId = testExecutedByUser;
-             let [protocolCreatedByUser]: MyUserType[] = await getUserById(Number(test.ProtocolCreatedByUserId)) as MyUserType[];
-             test.ProtocolCreatedByUserId = protocolCreatedByUser;
-              let [clientConstructionSite]: ConstructionSiteType[] = await getConstructionSiteById(Number(test.ClientConstructionSiteId)) as ConstructionSiteType[];
-              test.ClientConstructionSiteId = clientConstructionSite; }));
+        let [clientCompany]: CompanyType[] = await getCompanyById(Number(test.ClientCompanyId)) as CompanyType[];
+        test.ClientCompanyId = clientCompany;
+        let [employeeCompany]: CompanyType[] = await getCompanyById(Number(test.EmployeeCompanyId)) as CompanyType[];
+        test.EmployeeCompanyId = employeeCompany;
+        let [testExecutedByUser]: MyUserType[] = await getUserById(Number(test.TestExecutedByUserId)) as MyUserType[];
+        test.TestExecutedByUserId = testExecutedByUser;
+        let [protocolCreatedByUser]: MyUserType[] = await getUserById(Number(test.ProtocolCreatedByUserId)) as MyUserType[];
+        test.ProtocolCreatedByUserId = protocolCreatedByUser;
+        let [clientConstructionSite]: ConstructionSiteType[] = await getConstructionSiteById(Number(test.ClientConstructionSiteId)) as ConstructionSiteType[];
+        test.ClientConstructionSiteId = clientConstructionSite; }));
     return {
         users,
         strengthTests
