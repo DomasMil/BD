@@ -9,7 +9,7 @@ export async function getStrenghtTests() {
     return result
 }
 
-export async function getStrengthTestDataById(Id: number) {
+export async function getStrengthTestById(Id: number) {
     const [result] = await pool.query('SELECT * FROM strength_test WHERE id = ?', [Id]);
     return result;
 }
@@ -21,7 +21,7 @@ export async function createStrengthTest(clientCompany: number, companyConstruct
         const [result]: any[] = await pool.query("INSERT INTO strength_test (ClientCompanyId, ClientConstructionSiteId, EmployeeCompanyId, TestExecutedByUserId, ProtocolCreatedByUserId, TestSamplesReceivedDate, TestSamplesDeliveredBy, TestSamplesReceivedComment, TestSamplesReceivedCount, TestType, AcceptedSampleCount, RejectedSampleCount, ConcreteType, TestExecutionDate) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [clientCompany, companyConstructionSite, testExecutorCompanyId, testExecutorId, testExecutorId, receivedDate, deliveredBy, sampleReceivedComment, sampleCount, testType, acceptedSampleCount, rejectedSampleCount, concreteType, testExecutionDate]);
         const id = result.insertId;
         await pool.query("UPDATE strength_test SET TestProtocolNumber = ? WHERE id = ?", ["NR. "+id, id])
-        return await getStrengthTestDataById(id);
+        return await getStrengthTestById(id);
     } catch (error: any) {
         if (error.code === 'ER_DUP_ENTRY') {
             throw new Error('StrengthTest already exists.');

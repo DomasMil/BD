@@ -11,6 +11,7 @@ import type { CompanyType } from '$lib/server/db/tables/company/CompanyType';
 import type { ConstructionSiteType } from '$lib/server/db/tables/constructionsite/ConstructionSiteType.js';
 import { getConstructionSiteById } from '$lib/server/db/tables/constructionsite/ConstructionSite';
 
+
 // export const load = (({ locals }) => {
 // 	if (!locals?.role?.includes('teacher')) {
 // 		throw error(404, 'Neteisėtas prisijungimas');
@@ -22,6 +23,7 @@ import { getConstructionSiteById } from '$lib/server/db/tables/constructionsite/
 //         users
 //     };
 // }) satisfies PageServerLoad;
+
 
 export const load = async ({ request, depends }) => {
 	depends('template:load');

@@ -6,6 +6,12 @@ export async function getStrengthTestDataById(Id: number) {
 
 }
 
+export async function getStrengthTestDataByStrengthTestId(strengthTestId: number) {
+    const [result] = await pool.query('SELECT * FROM strength_test_data WHERE ConcreteCubeStrengthTestId = ?', [strengthTestId]);
+    
+    return result;
+}
+
 export async function createStrengthTestData(strengthTestId: number, comment: string, destructivePower: number, crushingStrength: number) {
     try {
         const [result]: any[] = await pool.query("INSERT INTO strength_test_data (ConcreteCubeStrengthTestId, Comment, DestructivePower) VALUES(?, ?, ?)", [strengthTestId, comment, destructivePower]);
