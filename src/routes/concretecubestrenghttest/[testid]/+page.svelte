@@ -23,11 +23,73 @@
     $: if (crossSectionalDimensions == null) {
         crossSectionalDimensions = data.crossSectionalDimensions;
 }
+
+async function createPDF() {
+        try {
+            const response = await fetch('/api/pdf', {
+                method: 'GET',
+                headers: {
+                    Accept: 'application/pdf'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            // Handle the binary data of the PDF
+            const blob = await response.blob();
+            console.log(blob);
+            // Create a URL for the blob
+            const blobUrl = window.URL.createObjectURL(blob);
+
+            const contentDisposition = response.headers.get('Content-Disposition');
+            let filename = 'default-filename.pdf'; // Default filename if none is specified
+            if (contentDisposition) {
+                const matches = /filename="([^"]+)"/.exec(contentDisposition);
+                console.log(matches);
+                if (matches && matches.length > 1) {
+                    filename = matches[1]; // Extract filename if available
+                }
+            }
+
+            // Create a link element to download the blob
+            const link = document.createElement('a');
+            link.href = blobUrl;
+            link.download = filename; // You can specify a default filename for the download here
+
+            // Append the link to the body, click it, and then remove it
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            // Optional: Release the object URL
+            window.URL.revokeObjectURL(blobUrl);
+
+            // alert('PDF downloaded successfully!');
+        } catch (error) {
+            console.error('Error creating PDF:', error);
+            // alert('Failed to create PDF');
+        }
+    }
+
 </script>
 
 
 
 <main>
+    <td>
+        <button
+      type="button"
+      class="button is-small is-info"
+      on:click={() => {
+          console.log('alo');
+          createPDF();
+      }}
+  >
+      {'Atsisiųsti duomenis'}</button
+  >
+    </td>
     <h2>Strength Test Data</h2>
     <p>Id: {strengthTest.Id}</p>
     <p>Test Protocol Number: {strengthTest.TestProtocolNumber}</p>

@@ -49,24 +49,3 @@ export const load = async ({ request, depends, params }) => {
     };
 
 }
-// export const load = (({ params, locals }) => {
-// 	const albumId = parseInt(params.albumId);
-
-// 	if (!albumId) {
-// 		throw error(404, 'Album not found');
-// 	}
-
-// 	const album = getAlbumById(albumId);
-
-// 	if (!album) {
-// 		throw error(404, 'Album not found');
-// 	}
-
-// 	const tracks = getAlbumTracks(albumId);
-
-// 	return {
-// 		album,
-// 		tracks,
-// 		isAdmin: locals?.roles?.includes('admin')
-// 	};
-// }) satisfies PageServerLoad;

@@ -1,74 +1,64 @@
-// import { exec } from 'child_process';
-// import type { RequestHandler } from '@sveltejs/kit';
-
-// export const POST: RequestHandler = async (request) => {
-//     const filename = 'src/Betono kubelinio stiprio nustatymas LST EN 12390-3.tex'; // replace with your filename
-
-//     return new Promise((resolve, reject) => {
-//         exec(`latex ${filename}`, (error, stdout, stderr) => {
-//                 if (error) {
-//                         reject({ status: 500, body: `Error executing latex: ${error}` });
-//                         return;
-//                 }
-
-//                 exec(`pdflatex ${filename.replace('.tex', '.dvi')}`, (error, stdout, stderr) => {
-//                         if (error) {
-//                                 reject({ status: 500, body: `Error executing pdflatex: ${error}` });
-//                                 return;
-//                         }
-
-//                         const response = new Response('PDF created successfully', {
-//                                 status: 200,
-//                                 headers: { 'Content-Type': 'text/plain' }
-//                         });
-
-//                         resolve(response);
-//                 });
-//         });
-//     });
-// };
-
 import { exec } from 'child_process';
 import type { RequestHandler } from '@sveltejs/kit';
+import fs from 'fs';
+import path from 'path';
 
-export const POST: RequestHandler = async (request) => {
-        const filename = 'src/Betono kubelinio stiprio nustatymas LST EN 12390-3.tex'; // replace with your filename
+function compileLatexFile(filePath: string): Promise<string> {
+    const pdflatexPath =
+        '"C:\\Users\\Domas\\AppData\\Local\\Programs\\MiKTeX\\miktex\\bin\\x64\\pdflatex.exe"'; // Adjust this path as necessary
+    console.log("pdflatexpath yra ", pdflatexPath)
+    console.log("file path yra ", path.dirname(filePath).replaceAll('"', ''))
+    return new Promise((resolve, reject) => {
+        exec(
+            `"${pdflatexPath}" -output-directory="${path
+                .dirname(filePath)
+                .replaceAll('"', '')}" ${filePath}`,
+            (error, stdout, stderr) => {
+                if (error) {
+                    reject(new Error(`pdflatex failed: ${stderr}`));
+                    return;
+                }
+                resolve(stdout);
+            }
+        );
+    });
+}
 
-        try {
-                await new Promise((resolve, reject) => {
-                        exec(`latex ${filename}`, (error, stdout, stderr) => {
-                                if (error) {
-                                        reject(`Error executing latex: ${error}`);
-                                        return;
-                                }
-                                console.log('Latex command executed successfully');
-                                resolve(void 0);
-                        });
-                });
+// Define the POST endpoint as an async function
+export const GET: RequestHandler = async ({ request }) => {
+    const filename =
+        '"D:\\Repositories\\BD github\\BD\\src\\tex\\Betono kubelinio stiprio nustatymas LST EN 12390-3.tex"';
 
-                await new Promise((resolve, reject) => {
-                        exec(`pdflatex ${filename.replace('.tex', '.dvi')}`, (error, stdout, stderr) => {
-                                if (error) {
-                                        reject(`Error executing pdflatex: ${error}`);
-                                        return;
-                                }
-                                console.log('Pdflatex command executed successfully');
-                                resolve(void 0);
-                        });
-                });
+    const editedTexOutput = 'tex\\Betono kubelinio stiprio nustatymas LST EN 12390-3.tex';
+    const outputPath = 'tex\\Betono kubelinio stiprio nustatymas LST EN 12390-3.pdf';
 
-                const response = new Response('PDF created successfully', {
-                        status: 200,
-                        headers: { 'Content-Type': 'text/plain' }
-                });
+    // Read tex template
+    let data = fs.readFileSync(path.basename(editedTexOutput), 'utf8');
 
-                return response;
-        } catch (error) {
-                const response = new Response(`Error creating PDF: ${error}`, {
-                        status: 500,
-                        headers: { 'Content-Type': 'text/plain' }
-                });
+    data = data.replace('{{TESTBROUGHT}}', 'Testus suvedė');
+    data = data.replace('{{FULLNAME}}', 'Vardenis pavardenis');
 
-                return response;
-        }
+    // write into tex folder with changed data
+    fs.writeFileSync(editedTexOutput, data);
+
+    try {
+        await compileLatexFile(filename); // Ensure LaTeX compilation finishes
+
+        // Read the resulting PDF file and send it back as a response
+        const pdfBuffer = fs.readFileSync(outputPath);
+        return new Response(pdfBuffer, {
+            status: 200,
+            headers: {
+                'Content-Type': 'application/pdf',
+                'Content-Disposition': `attachment; filename="${path.basename(outputPath)}"`
+            }
+        });
+    } catch (error) {
+        // Handle errors and send appropriate responses
+        console.error(error);
+        return new Response(`Error creating PDF: ${error.message}`, {
+            status: 500,
+            headers: { 'Content-Type': 'text/plain' }
+        });
+    }
 };
