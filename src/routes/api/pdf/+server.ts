@@ -5,14 +5,12 @@ import path from 'path';
 
 function compileLatexFile(filePath: string): Promise<string> {
     const pdflatexPath =
-        '"C:\\Users\\Domas\\AppData\\Local\\Programs\\MiKTeX\\miktex\\bin\\x64\\pdflatex.exe"'; // Adjust this path as necessary
-    console.log("pdflatexpath yra ", pdflatexPath)
+    "C:\\Users\\Domas\\AppData\\Local\\Programs\\MiKTeX\\miktex\\bin\\x64\\pdflatex.exe";
     console.log("file path yra ", path.dirname(filePath).replaceAll('"', ''))
+    const outputhFile = 'D:\\Repositories\\BD github\\BD\\tex'
     return new Promise((resolve, reject) => {
         exec(
-            `"${pdflatexPath}" -output-directory="${path
-                .dirname(filePath)
-                .replaceAll('"', '')}" ${filePath}`,
+            `"${pdflatexPath}" -output-directory="${outputhFile}" ${filePath}`,
             (error, stdout, stderr) => {
                 if (error) {
                     reject(new Error(`pdflatex failed: ${stderr}`));
@@ -27,15 +25,15 @@ function compileLatexFile(filePath: string): Promise<string> {
 // Define the POST endpoint as an async function
 export const GET: RequestHandler = async ({ request }) => {
     const filename =
-        '"D:\\Repositories\\BD github\\BD\\src\\tex\\Betono kubelinio stiprio nustatymas LST EN 12390-3.tex"';
+        '"D:\\Repositories\\BD github\\BD\\tex\\Betono kubelinio stiprio nustatymas LST EN 12390-3.tex"';
 
-    const editedTexOutput = 'tex\\Betono kubelinio stiprio nustatymas LST EN 12390-3.tex';
-    const outputPath = 'tex\\Betono kubelinio stiprio nustatymas LST EN 12390-3.pdf';
+    const editedTexOutput = '.\\tex\\Betono kubelinio stiprio nustatymas LST EN 12390-3.tex';
+    const outputPath = '.\\tex\\Betono kubelinio stiprio nustatymas LST EN 12390-3.pdf';
 
     // Read tex template
     let data = fs.readFileSync(path.basename(editedTexOutput), 'utf8');
 
-    data = data.replace('{{TESTBROUGHT}}', 'Testus suvedė');
+    data = data.replace('{{TESTBROUGHT}}', 'AUGHHHHH');
     data = data.replace('{{FULLNAME}}', 'Vardenis pavardenis');
 
     // write into tex folder with changed data

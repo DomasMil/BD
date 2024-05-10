@@ -1,8 +1,8 @@
 <script lang="ts">
 	import type { ActionData } from './$types';
 
-	let username = 'teacher';
-	let password = 'teacher';
+	let username = 'DomasMil';
+	let password = 'DomasMil';
 
 	export let form: ActionData;
 	
