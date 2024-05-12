@@ -19,22 +19,22 @@ type ConcreteClass = {
     value: number;
   };
   const classes: ConcreteClass[] = [
-    { name: 'C8\\10', value: 10 },
-    { name: 'C12\\15', value: 15 },
-    { name: 'C16\\20', value: 20 },
-    { name: 'C20\\25', value: 25 },
-    { name: 'C25\\30', value: 30 },
-    { name: 'C30\\37', value: 37 },
-    { name: 'C35\\45', value: 45 },
-    { name: 'C40\\50', value: 50 },
-    { name: 'C45\\55', value: 55 },
-    { name: 'C50\\60', value: 60 },
-    { name: 'C55\\67', value: 67 },
-    { name: 'C60\\75', value: 75 },
-    { name: 'C70\\85', value: 85 },
-    { name: 'C80\\95', value: 95 },
-    { name: 'C90\\105', value: 105 },
-    { name: 'C100\\115', value: 115 },
+    { name: 'C8/10', value: 10 },
+    { name: 'C12/15', value: 15 },
+    { name: 'C16/20', value: 20 },
+    { name: 'C20/25', value: 25 },
+    { name: 'C25/30', value: 30 },
+    { name: 'C30/37', value: 37 },
+    { name: 'C35/45', value: 45 },
+    { name: 'C40/50', value: 50 },
+    { name: 'C45/55', value: 55 },
+    { name: 'C50/60', value: 60 },
+    { name: 'C55/67', value: 67 },
+    { name: 'C60/75', value: 75 },
+    { name: 'C70/85', value: 85 },
+    { name: 'C80/95', value: 95 },
+    { name: 'C90/105', value: 105 },
+    { name: 'C100/115', value: 115 },
     ];
 
 function findClass(characteristicStrenght: number): string {

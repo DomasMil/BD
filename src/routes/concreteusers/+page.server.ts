@@ -15,6 +15,7 @@ export const load = async ({ request, depends }) => {
     let users: MyUserType[];
     let companies: CompanyType[];
 
+
     console.log("---------------------------------",role);
     if (role == 'admin' || role == 'employee') {
         users = await getUsers() as MyUserType[];

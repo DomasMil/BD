@@ -23,7 +23,9 @@ function compileLatexFile(filePath: string): Promise<string> {
 }
 
 // Define the POST endpoint as an async function
-export const GET: RequestHandler = async ({ request }) => {
+export const GET: RequestHandler = async ({ request, params }) => {
+    const id = params.id;
+    console.log("id yra ", id)
     const filename =
         '"D:\\Repositories\\BD github\\BD\\tex\\Betono kubelinio stiprio nustatymas LST EN 12390-3.tex"';
 

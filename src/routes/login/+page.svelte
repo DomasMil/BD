@@ -34,8 +34,5 @@
 			>Prisijungti</button
 		>
 		<hr />
-		<a class="button mt-4 mr-3 is-fullwidth" href="/register"
-			>Registruotis</a
-		>
 	</form>
 </div>

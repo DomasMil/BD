@@ -39,7 +39,7 @@
 <header>
 	<nav class="navbar is-primary px-4" style="aria-label: main navigation">
 		<div class="navbar-brand pr-4">
-			<span class="is-size-3 has-text-weight-semibold">Augh</span>
+			<span class="is-size-3 has-text-weight-semibold">LBVS</span>
 		</div>
 		<div class="navbar-menu">
 		</div>
@@ -48,12 +48,15 @@
 			<div class="navbar-item">
 				<div class="buttons has-icons-left" style="margin-bottom: -0.5rem; margin-right: 1%;">
 					<div class="button-container" style="display: flex; align-items: center;">
+						{#if !isLoginPage}
 						<a href="/profile" class="button is-primary" style="display: flex; align-items: center; justify-content: center; gap: 8px;" data-sveltekit-preload-data="off" data-sveltekit-reload>
 							<svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="height: 20px;">
 								<path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z"></path>
 							</svg>
 							Profilis
 						</a>
+						{/if}
+
 					</div>
 				</div>	
 				<div class="buttons">
@@ -79,20 +82,15 @@
             <ul class="menu-list">
 				<li>
 					<!-- svelte-ignore a11y-invalid-attribute -->
-					<a href="#" on:click={toggleLstDropdown}>+Betonas</a>
+					<a href="#" on:click={toggleLstDropdown}>Betonas ir gelžbetonis</a>
 					<ul style={isLstDropdownOpen ? "display: block;" : "display: none;"}>
-						<li><a href="/concretecubestrenghttest">+Kubelinio stiprio bandymai</a></li>
-						<li><a href="/addconcretecubestrenghttest">+Sukurti naują kubelinio stiprio bandymą</a></li>
+						<li><a href="/concretecubestrenghttest">Kubelinio stiprio bandymai</a></li>
+						<li><a href="/addconcretecubestrenghttest">Sukurti naują kubelinio stiprio bandymą</a></li>
 					</ul>
 				</li>
-				<li><a href="/concreteusers">+Vartotojai</a></li>
-				<li><a href="/concreteimones">+Įmonės</a></li>
+				<li><a href="/concreteusers">Vartotojai</a></li>
+				<li><a href="/concreteimones">Įmonės</a></li>
                 <!-- Adjust links based on user role -->
-                {#if data?.role === 'student'}
-
-                {:else if data?.role === 'teacher'}
-
-                {/if}
             </ul>
         </div>
     </aside>
@@ -102,7 +100,7 @@
         <!-- Your existing header/navigation bar code... -->
 		<!-- Button to toggle the side menu -->
 		{#if !isLoginPage}
-			<button class="button is-info" on:click={toggleSideMenu}>Toggle Side Menu</button>
+			<button class="button is-info" on:click={toggleSideMenu}>←</button>
 		{/if}
         <!-- Content goes here -->
         <slot />

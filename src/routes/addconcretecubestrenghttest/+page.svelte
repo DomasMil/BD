@@ -45,7 +45,7 @@
         <header class="card-header">
             <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
                 <p class="title py-4 px-4">
-                    Kubelinio stiprio bandymo forma
+                    “LST EN 12390-3” kubelio stiprio nustatymo tyrimas.
                 </p>
             </div>
         </header>

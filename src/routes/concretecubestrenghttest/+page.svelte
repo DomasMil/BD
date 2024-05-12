@@ -63,9 +63,10 @@
 //     });
 // }
 
-async function createPDF() {
+async function createPDF(id: number) {
+    //console.log("*************ID*****************",id);
         try {
-            const response = await fetch('/api/pdf', {
+            const response = await fetch(`/api/pdf/${id}`, {
                 method: 'GET',
                 headers: {
                     Accept: 'application/pdf'
@@ -147,7 +148,7 @@ async function createPDF() {
                 <p class="title py-4 px-4">
                     Kubelinio stiprio bandymai
                 </p>
-                <td><button
+                <!-- <td><button
                     type="button"
                     class="button is-small is-info"
                     on:click={() => {
@@ -156,7 +157,7 @@ async function createPDF() {
                     }}
                 >
                     {'Atsisiųsti duomenis'}</button
-                ></td>
+                ></td> -->
                 <!-- <button on:click={convertToPdf} class="button is-primary">Convert to PDF</button> -->
             </div>
         </header>
@@ -188,13 +189,23 @@ async function createPDF() {
                                         selectedStrengthTest = strengthTest;
                                         isModalOpen = true;
                                     }}>{"user.attempts.length"}</button></td> -->
-                                    <td>
+                                    <!-- <td>
                                         <button type="button" class="button is-small is-info" on:click={() =>{
                                             selectedStrengthTest = strengthTest;
                                             goto(`/concretecubestrenghttest/${strengthTest.Id}`);
                                     }}>
                                         {"Išsamiau"}</button>
-                                    </td>
+                                    </td> -->
+                                    <td><button
+                                        type="button"
+                                        class="button is-small is-info"
+                                        on:click={() => {
+                                            console.log('alo');
+                                            createPDF(strengthTest.Id);
+                                        }}
+                                    >
+                                        {'Atsisiųsti duomenis'}</button
+                                    ></td>
                                 </tr>
                             <!-- {/if} -->
                         {/each}

@@ -11,7 +11,7 @@
     let currentPagecomapanies: CompanyType[];
 
     let currentPage = 1;
-    const itemsPerPage = 8;
+    const itemsPerPage = 3;
     let isModalOpen = false;
     let isConstructionSiteModalOpen = false;
     let isNewEntry = true;
@@ -155,7 +155,7 @@
                                     selectedCompany = company;
                                     isModalOpen = true;
                                     isNewEntry = false;
-                                }}>Redaguoti</button>
+                                }}>Redaguoti įmonę</button>
                                 <div class="content">
                                     <p><b>Pavadinimas:</b> {company.Name}</p>
                                     <p><b>Adresas:</b> {company.Address}</p>
@@ -188,7 +188,7 @@
         <!-- svelte-ignore a11y-no-static-element-interactions -->
         <div class="modal-background" on:click={closeModal}></div>
         <div class="modal-content" style="background-color: white; font-size:large; padding:3%;">
-            <h2><b>{isNewEntry ? 'Naujo vartotojo forma' : 'Vartotojo redagavimas'}</b></h2>
+            <h2><b>{isNewEntry ? 'Naujos įmonės forma' : 'įmonės redagavimas'}</b></h2>
             <hr>
             <div style="margin-top:2%;">
                 <form method="post" action="{isNewEntry ? '?/addcompany' : '?/updatecompany'}">
