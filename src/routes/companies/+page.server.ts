@@ -13,7 +13,7 @@ export const load = async ({ request, depends }) => {
 	depends('template:load');
     const cookies = request.headers.get('cookie');
     const { role } = parse(cookies || '');
-	if (!role?.includes('admin' && 'employee')) {
+	if (!role?.includes('admin') && !role?.includes('employee')) {
 		throw error(404, 'Neteisėtas prisijungimas');
 	}
     let companies: CompanyType[];
@@ -37,7 +37,7 @@ export const actions: Actions = {
         const companyCode = data.get('companyCode')?.toString();
         if (name && address && companyCode) {
             createCompany(name, address, companyCode);
-            throw redirect(303, '/concreteimones?addsuccess');
+            throw redirect(303, '/companies?addsuccess');
         } else {
             return fail(400, { errorMessage: 'Missing information' });
         }
@@ -51,7 +51,7 @@ export const actions: Actions = {
         const companyCode = data.get('companyCode')?.toString();
         if (id && name && address && companyCode) {
             updateCompany(id, name, address, companyCode);
-            throw redirect(303, '/concreteimones?updatesuccess');
+            throw redirect(303, '/companies?updatesuccess');
         } else {
             return fail(400, { errorMessage: 'Missing information' });
         }
@@ -64,7 +64,7 @@ export const actions: Actions = {
         const address = data.get('address')?.toString();
         if (name && address && company_id) {
             createConstructionSite(company_id, name, address);
-            throw redirect(303, '/concreteimones?siteaddsuccess');
+            throw redirect(303, '/companies?siteaddsuccess');
         } else {
             return fail(400, { errorMessage: 'Missing information' });
         }

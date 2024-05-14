@@ -6,7 +6,7 @@
 
 
 
-	let isSideMenuOpen: boolean = false;
+	let isSideMenuOpen: boolean = true;
 	let isLstDropdownOpen = false;
 	let isLoginPage = true;
 
@@ -39,7 +39,7 @@
 <header>
 	<nav class="navbar is-primary px-4" style="aria-label: main navigation">
 		<div class="navbar-brand pr-4">
-			<span class="is-size-3 has-text-weight-semibold">LBVS</span>
+			<span class="is-size-3 has-text-weight-semibold"></span>
 		</div>
 		<div class="navbar-menu">
 		</div>
@@ -76,6 +76,7 @@
 	</nav>
 </header>
 <div class="columns">
+	{#if !isLoginPage}
     <!-- Side menu -->
     <aside class="column is-2" style={isSideMenuOpen ? "display: block;" : "display: none;"}>
         <div class="menu">
@@ -84,24 +85,33 @@
 					<!-- svelte-ignore a11y-invalid-attribute -->
 					<a href="#" on:click={toggleLstDropdown}>Betonas ir gelžbetonis</a>
 					<ul style={isLstDropdownOpen ? "display: block;" : "display: none;"}>
-						<li><a href="/concretecubestrenghttest">Kubelinio stiprio bandymai</a></li>
-						<li><a href="/addconcretecubestrenghttest">Sukurti naują kubelinio stiprio bandymą</a></li>
+						<li><a href="/cubestrenghttest">Kubelinio stiprio bandymai</a></li>
+						{#if data?.role === 'admin' || data?.role === 'employee'}
+						<li><a href="/addcubestrenghttest">Sukurti naują kubelinio stiprio bandymą</a></li>
+						{/if}
+						
 					</ul>
 				</li>
-				<li><a href="/concreteusers">Vartotojai</a></li>
-				<li><a href="/concreteimones">Įmonės</a></li>
+				<li><a href="/users">Vartotojai</a></li>
+				{#if data?.role === 'admin' || data?.role === 'employee'}
+				<li><a href="/companies">Įmonės</a></li>
+				{/if}
                 <!-- Adjust links based on user role -->
             </ul>
         </div>
     </aside>
+	{/if}
 
     <!-- Main content area -->
     <main class="column" style={isSideMenuOpen ? "margin-left: -0.5rem;" : "margin-left: 0;"}>
         <!-- Your existing header/navigation bar code... -->
 		<!-- Button to toggle the side menu -->
-		{#if !isLoginPage}
-			<button class="button is-info" on:click={toggleSideMenu}>←</button>
+		{#if !isLoginPage && !isSideMenuOpen}
+		<button class="button is-info" on:click={toggleSideMenu}>→</button>
+		{:else if !isLoginPage && isSideMenuOpen}
+		<button class="button is-info" on:click={toggleSideMenu}>←</button>
 		{/if}
+
         <!-- Content goes here -->
         <slot />
     </main>

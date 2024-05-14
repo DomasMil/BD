@@ -13,7 +13,7 @@ import type { ConstructionSiteType } from '$lib/server/db/tables/constructionsit
 import type { StrengthTestDataType } from '$lib/server/db/tables/strengthtestdata/StrengthTestDataType';
 import { getStrengthTestDataByStrengthTestId } from '$lib/server/db/tables/strengthtestdata/StrengthTestData';
 import type { crossSectionalDimensionsType } from '$lib/server/db/tables/crosssectionaldimensions/CrossSectionalDimensionsType';
-import { getCrossSectionalDimensionsByConcreteCubeStrenghtTestDataId } from '$lib/server/db/tables/crosssectionaldimensions/CrossSectionalDimensions';
+import { getCrossSectionalDimensionsBycubestrenghttestDataId } from '$lib/server/db/tables/crosssectionaldimensions/CrossSectionalDimensions';
 
 function compileLatexFile(filePath: string): Promise<string> {
     const pdflatexPath =
@@ -50,7 +50,7 @@ async function retrieveStrengthTestData(testId: number) {
 	//console.log("*********TESTDATA***********",strengthTestData);
 	let crossSectionalDimensions: crossSectionalDimensionsType[][] = [];
 	for (let data of strengthTestData) {
-		let temp: crossSectionalDimensionsType[] = await getCrossSectionalDimensionsByConcreteCubeStrenghtTestDataId(data.Id) as crossSectionalDimensionsType[];
+		let temp: crossSectionalDimensionsType[] = await getCrossSectionalDimensionsBycubestrenghttestDataId(data.Id) as crossSectionalDimensionsType[];
 		crossSectionalDimensions.push(temp);
 	}
 
@@ -78,6 +78,8 @@ export const GET: RequestHandler = async ({ request, params }) => {
 
     // Read tex template
     let data = fs.readFileSync(path.basename(editedTexOutput), 'utf8');
+
+    if (strengthTest.TestType === 'Pradinis') {
 
     data = data.replace('{{STRENGTHTESTID}}', strengthTest.Id.toString());
     data = data.replace('{{STRENGTHTESTID2}}', strengthTest.Id.toString());
@@ -178,10 +180,8 @@ export const GET: RequestHandler = async ({ request, params }) => {
     data = data.replace('{{CROSSDATA310}}', crossSectionalDimensions[2][9].Value.toString());
     data = data.replace('{{CROSSDATA311}}', crossSectionalDimensions[2][10].Value.toString());
     data = data.replace('{{CROSSDATA312}}', crossSectionalDimensions[2][11].Value.toString());
-    
-    data = data.replace('{{TESTBROUGHT}}', 'AUGHHHHH');
-    data = data.replace('{{FULLNAME}}', 'Vardenis pavardenis');
 
+}
     // write into tex folder with changed data
     fs.writeFileSync(editedTexOutput, data);
 

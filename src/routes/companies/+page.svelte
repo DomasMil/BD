@@ -73,7 +73,7 @@
   </div>
   <script>
     setTimeout(() => {
-        window.location.href = '/concreteimones';
+        window.location.href = '/companies';
     }, 5000);
   </script>
 {/if}
@@ -84,7 +84,7 @@
     </div>
     <script>
         setTimeout(() => {
-            window.location.href = '/concreteimones';
+            window.location.href = '/companies';
         }, 5000);
     </script>
 {/if}
@@ -95,7 +95,7 @@
   </div>
   <script>
     setTimeout(() => {
-        window.location.href = '/concreteimones';
+        window.location.href = '/companies';
     }, 5000);
   </script>
 {/if}
@@ -106,7 +106,7 @@
     </div>
     <script>
         setTimeout(() => {
-            window.location.href = '/concreteimones';
+            window.location.href = '/companies';
         }, 5000);
     </script>
 {/if}
@@ -117,7 +117,7 @@
   </div>
   <script>
     setTimeout(() => {
-        window.location.href = '/concreteimones';
+        window.location.href = '/companies';
     }, 5000);
   </script>
 {/if}

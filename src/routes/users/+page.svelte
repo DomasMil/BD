@@ -8,13 +8,18 @@
     let users: MyUserType[];
     let companies: CompanyType[];
 	let currentPageUsers : MyUserType[];
-
+    let showSuccess = false;
     let currentPage = 1;
     const itemsPerPage = 10;
 
 
     let isModalOpen = false;
     let selectedUser: MyUserType | null = null;
+    
+    onMount(() => {
+      const params = new URLSearchParams(window.location.search);
+      showSuccess = params.has('addsuccess');
+    });
 
     $: if (users == null) {
         users = data.users;
@@ -53,15 +58,20 @@ let success = false;
 onMount(() => {
   // Check if the URL has a success query parameter
   const params = new URLSearchParams(window.location.search);
-  success = params.has('registrationsuccess');
+  success = params.has('success');
 });
 
 </script>
 
 {#if success}
   <div class="notification is-success">
-    Registration successful!
+    Vartotojas sėkmingai pridėtas!
   </div>
+  <script>
+    setTimeout(() => {
+        window.location.href = '/users';
+    }, 3000);
+  </script>
 {/if}
 
 <div class="px-4 mt-5">
@@ -69,17 +79,17 @@ onMount(() => {
         <header class="card-header">
             <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
                 <p class="title py-4 px-4">
-                    Vartotojai
+                    Naudotojai
                 </p>
             </div>
         </header>
         <div class="card-content">
             <div style="display: flex; align-items: center; justify-content: space-between;">
-                <!-- Button to add -->
-                <button type="button" class="button is-primary mr-4" style="margin-top: 20px" on:click={() =>{
-                    //selectedUser = user;
-                    isModalOpen = true;
-                }}>{"Pridėti"}</button>
+                {#if data.role !== 'client' || data.role === ''}
+                    <button type="button" class="button is-primary mr-4" style="margin-top: 20px" on:click={() =>{
+                        isModalOpen = true;
+                    }}>{"Pridėti"}</button>
+                {/if}
             </div>
             <div class="content">
                 <table class="table is-fullwidth is-striped">
@@ -116,7 +126,7 @@ onMount(() => {
         <!-- svelte-ignore a11y-no-static-element-interactions -->
         <div class="modal-background" on:click={closeModal}></div>
         <div class="modal-content" style="background-color: white; font-size:large; padding:3%;">
-            <h2><b>Naujo vartotojo forma</b></h2>
+            <h2><b>Naujo naudotojo forma</b></h2>
             <hr>
             <div style="margin-top:2%;">
                 <form method="post" action="?/register">
@@ -130,7 +140,7 @@ onMount(() => {
                     <input
                         class="input my-2"
                         type="text"
-                        placeholder="Vartotojo vardas"
+                        placeholder="Naudotojo vardas"
                         name="username"
                         required
                     />

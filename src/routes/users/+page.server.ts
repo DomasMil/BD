@@ -59,13 +59,7 @@ export const actions: Actions = {
 
         if (name && username && password && email && company && role) {
             createUser(username, password, name, email, Number(company), role);
-           return {
-                status: 303,
-                headers: {
-                    'Location': `/`,
-                    'Refresh': '0;url=/'
-                }
-            }
+            throw redirect(303, '/users?success');
         } else {
             return fail(400, { errorMessage: 'Missing username or password' });
         }

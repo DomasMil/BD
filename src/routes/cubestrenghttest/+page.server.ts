@@ -29,9 +29,9 @@ export const load = async ({ request, depends }) => {
 	depends('template:load');
     const cookies = request.headers.get('cookie');
     const { role, user_id, name, company_id } = parse(cookies || '');
-	if (!role?.includes('admin' && 'employee')) {
-		throw error(404, 'Neteisėtas prisijungimas');
-	}
+	// if (!role?.includes('admin' && 'employee')) {
+	// 	throw error(404, 'Neteisėtas prisijungimas');
+	// }
 
     let users: MyUserType[] = await getUsers() as MyUserType[];
     let strengthTests: StrengthTestListType[] = await getStrenghtTests() as StrengthTestListType[];
@@ -46,6 +46,10 @@ export const load = async ({ request, depends }) => {
         test.ProtocolCreatedByUserId = protocolCreatedByUser;
         let [clientConstructionSite]: ConstructionSiteType[] = await getConstructionSiteById(Number(test.ClientConstructionSiteId)) as ConstructionSiteType[];
         test.ClientConstructionSiteId = clientConstructionSite; }));
+
+        if (role?.includes('clientadmin') || role?.includes('client')) {
+            strengthTests = strengthTests.filter(test => test.ClientCompanyId.Id === Number(company_id));
+        }
     return {
         users,
         strengthTests

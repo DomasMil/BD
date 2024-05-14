@@ -8,7 +8,7 @@
 		if(!data.loggedIn){
 			goto('/login');
 		}else if(data.loggedIn ){ //&& data.role == 'admin'
-			goto('/concreteusers');
+			goto('/users');
 		}
 		else{
 			goto('/');

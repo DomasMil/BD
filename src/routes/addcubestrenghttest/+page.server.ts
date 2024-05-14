@@ -245,7 +245,7 @@ console.log("***************PARSEDTABLEEND****************");
             }
 
             
-            throw redirect(303, '/addconcretecubestrenghttest?addsuccess');
+            throw redirect(303, '/addcubestrenghttest?success');
         } else {
             return fail(400, { errorMessage: 'Missing information' });
         }

@@ -192,7 +192,7 @@ async function createPDF(id: number) {
                                     <!-- <td>
                                         <button type="button" class="button is-small is-info" on:click={() =>{
                                             selectedStrengthTest = strengthTest;
-                                            goto(`/concretecubestrenghttest/${strengthTest.Id}`);
+                                            goto(`/cubestrenghttest/${strengthTest.Id}`);
                                     }}>
                                         {"Išsamiau"}</button>
                                     </td> -->

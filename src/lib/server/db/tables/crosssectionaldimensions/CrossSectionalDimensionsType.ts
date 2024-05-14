@@ -1,6 +1,6 @@
 export type crossSectionalDimensionsType = {
     Id: number,
-    ConcreteCubeStrenghtTestDataId : number,
+    cubestrenghttestDataId : number,
     Dimension: number,
     Value: number
 }

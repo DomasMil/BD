@@ -1,13 +1,15 @@
 <script lang="ts">
-	import type { PageData } from './$types';
+	import type { PageData } from '../addconcretecubestrenghttest/$types';
     import type { MyUserType } from '$lib/server/db/tables/user/UserType';
-	import type { ActionData } from './$types';
+	import type { ActionData } from '../addconcretecubestrenghttest/$types';
 	import type { CompanyType } from '$lib/server/db/tables/company/CompanyType';
 	import type { ConstructionSiteType } from '$lib/server/db/tables/constructionsite/ConstructionSiteType';
 	import { get } from 'svelte/store';
+	import { onMount } from 'svelte';
 
     // Variable to store selected date and time
     let selectedDateTime = '';
+    let showSuccess = false;
 
     let users: MyUserType[];
     let companies: CompanyType[];
@@ -19,6 +21,11 @@
     export let data: PageData;
 	//export let form: ActionData;
   
+    onMount(() => {
+      const params = new URLSearchParams(window.location.search);
+      showSuccess = params.has('success');
+    });
+
     $: if (users == null) {
         users = data.users;
     }
@@ -39,6 +46,16 @@
 
 </script>
 
+{#if showSuccess}
+  <div class="notification is-success">
+    Bandymas sėkmingai išsaugotas!
+  </div>
+  <script>
+    setTimeout(() => {
+        window.location.href = '/addcubestrenghttest';
+    }, 5000);
+  </script>
+{/if}
 
 <div class="px-4 mt-5">
     <div class="card">
