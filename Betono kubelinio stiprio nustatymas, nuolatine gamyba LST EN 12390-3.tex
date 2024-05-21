@@ -30,7 +30,7 @@
 \pagestyle{fancy}
 \lhead{\bf Betono kubelinis stipris, LST EN 12390-3. }
 \chead{}
-\rhead{\bf Prot. Nr.~83 ; \today} % Bandymų protokolo numerį reikia įrašyti. 
+\rhead{\bf Prot. Nr.~{{STRENGTHTESTID}} ; \today} % Bandymų protokolo numerį reikia įrašyti. 
                                     % Jis gali būti generuojamas  automatiškai programos,
 									% tačiau tas protokolo numeris negali kartotis, kiekvieno protokolo 
 									%  numeris turi būti vienintelis, unikalus.
@@ -91,45 +91,45 @@
 
 \begin{center}
 	{\Large Betono kubelinio stiprio nustatymas pagal {\bf LST EN 12390-3}\\
-		Bandymų protokolas {\bf \Large \textcolor{blue}{Nr.~83}}\\ % Bandymų protokolo numerį reikia įrašyti. Jis gali būti generuojamas  automatiškai programos, tačiau tas protokolo numeris negali kartotis, kiekvieno protokolo numeris turi būti vienintelis, unikalus
+		Bandymų protokolas {\bf \Large \textcolor{blue}{Nr.~{{STRENGTHTESTID2}}}}\\ % Bandymų protokolo numerį reikia įrašyti. Jis gali būti generuojamas  automatiškai programos, tačiau tas protokolo numeris negali kartotis, kiekvieno protokolo numeris turi būti vienintelis, unikalus
 	}
 \end{center}
 
-{\hspace{2.5cm} {\bf Užsakovas:} \hfill \parbox{12.0cm}{Saulėtekio pastatai, Saulėtekio al. 522, Vilnius, Įmonės kodas, 856925514}} % Reikia čia įrašyti užsakovo rekvizitus  iš programos atitinkamo įvedimo lango
+{\hspace{2.5cm} {\bf Užsakovas:} \hfill \parbox{12.0cm}{{{STRENGTHTESTCLIENTCOMPANYNAME}}, {{STRENGTHTESTCLIENTCOMPANYADDRESS}}, Įmonės kodas, {{STRENGTHTESTCLIENTCOMPANYCODE}}}} % Reikia čia įrašyti užsakovo rekvizitus  iš programos atitinkamo įvedimo lango
 
 \vspace{0.5cm}
 
-{\hspace{2.5cm} {\bf Vykdytojas:} \hfill \parbox{12.0cm}{Statybinių medžiagų ir konstrukcijų tyrimu centras, Vilniaus pagrindinis filialas, Lvovo gatvė, 6, Įmonės kodas, 253258686}} % Šitą lauką galima užharkodinti 
+{\hspace{2.5cm} {\bf Vykdytojas:} \hfill \parbox{12.0cm}{{{STRENGTHTESTEMPLOYEECOMPANYNAME}}, {{STRENGTHTESTEMPLOYEECOMPANYADDRESS}}, Įmonės kodas, {{STRENGTHTESTEMPLOYEECOMPANYCODE}}}} % Šitą lauką galima užharkodinti 
 
 \vspace{0.5cm}
 \hspace{5.25cm} {\bf Protokolas sudarytas:} { \today } % Lateksas datą generuoja automatiškai \today operatorius nieko iš programos lango įrašyti nereikia 
 
-\hspace{5.25cm} {\bf Bandymai atlikti:} {2024 m. gegužės 06 d.} % Reikia čia įrašyti bandymų atlikimo datą iš programos įvedimo lango
+\hspace{5.25cm} {\bf Bandymai atlikti:} {{{TESTEXECUTIONDATE}}} % Reikia čia įrašyti bandymų atlikimo datą iš programos įvedimo lango
 
-\hspace{5.25cm} \nin {\bf Bandiniai gauti:} {2024 m. gegužės 01 d.} % Reikia čia įrašyti bandinių gavimo datą iš programos įvedimo lango
+\hspace{5.25cm} \nin {\bf Bandiniai gauti:} {{{TESTSAMPLESRECEIVEDDATE}}} % Reikia čia įrašyti bandinių gavimo datą iš programos įvedimo lango
 
 \vspace{0.5cm}
-\hspace{5.25cm} {\bf Bandinius pristatė:} {Vykdytojas}. % Reikia čia įrašyti kas bandinius pristatė, galima padaryti ir pasirinkimus: Užsakovas / Užsakovo įgaliotas atstovas / Vykdytojas  Į
+\hspace{5.25cm} {\bf Bandinius pristatė:} {{{TESTSAMPLESDELIVEREDBY}}}. % Reikia čia įrašyti kas bandinius pristatė, galima padaryti ir pasirinkimus: Užsakovas / Užsakovo įgaliotas atstovas / Vykdytojas  Į
 
-\hspace{5.25cm} {\bf Bandymus atliko:} {Domas Milinavičius}. % Reikia čia įrašyti laboranto vardą ir pavardę
+\hspace{5.25cm} {\bf Bandymus atliko:} {{{STRENGTHTESTEXECUTEDBYNAME}}}. % Reikia čia įrašyti laboranto vardą ir pavardę
 
-\hspace{5.25cm} {\bf Protokolą sudarė:} {Domas Milinavičius}.% Reikia čia įrašyti protokolo sudarytojo vardą ir pavardę
+\hspace{5.25cm} {\bf Protokolą sudarė:} {{{STRENGTHTESTPROTOCOLCREATEDBYNAME}}}.% Reikia čia įrašyti protokolo sudarytojo vardą ir pavardę
 
 \section{Bandinių imties apibūdinimas}
 
-\hspace{\parindent}{\bf Bandymo tipas pagal LST EN 206-1 8.2.1.2 ir/arba 8.2.1.3 pastraipas:} {Pradinis }
+\hspace{\parindent}{\bf Bandymo tipas pagal LST EN 206-1 8.2.1.2 ir/arba 8.2.1.3 pastraipas:} {{{TESTTYPE}} }
 				% Čia reikia įrašyti betono gamybos pobūdį: pradinė arba nuolatinė.
 				% Jeigu gamyba pradinė, tuomet imami trys bandiniai, jeigu nuolatinė tuomet 1 bandinys
 
-{\bf Betono tipas pagal tankį}: {Sunkusis arba normalusis}.% Čia reikia įrašyti betono tipą pagal tankį. dar gali būti kitas pasirinkimas - lengvasis betonas. T.y. iš viso du pasirinkimai: {sunkusis arba normalusi} ir {lengvasis}.
+{\bf Betono tipas pagal tankį}: {{{CONCRETETYPE}}}.% Čia reikia įrašyti betono tipą pagal tankį. dar gali būti kitas pasirinkimas - lengvasis betonas. T.y. iš viso du pasirinkimai: {sunkusis arba normalusi} ir {lengvasis}.
 
-{\bf Gautos arba paimtos imties dydis:} $ 7 $ betoniniai kubeliai. 
+{\bf Gautos arba paimtos imties dydis:} $ {{TESTSAMPLESRECEIVEDCOUNT}} $ betoniniai kubeliai. 
 	% Čia reikia įrašyti gautų kubelių skaičių
 	
 	{\bf Bandinių matmenys:} betono kubai { $ (15 \times 15 \times 15) $} cm.
 	%  (Arba gali būti ir nestandartinių matmenų. Standartiniai matmenys $ (15 \times 15 \times 15) $, bet gali būti ir $ (10 \times 10 \times 10) $ arba  $ (20 \times 20 \times 20) $ cm; nestandartiniai jeigu ne $ (15 \times 15 \times 15) $ cm, $ (15 \times 15 \times 15) $ cm, arba $ (20 \times 20 \times 20) $ cm).
 	
-	{\bf Bendras bandinių išvaizdos apibūdinimas bandinių priėmimo metu:} bandiniai atvežti tinkamai supakuoti, apsaugoto nuo drėgmės išgaravimo, bandinių geometrija ir matmenys vizualiai atitinka reikalavimuss. % Šitą tekstą paimti iš programos lauko kuriame jis įdedamas pagal nutylėjimą (t.y. toks kaip tai yra parašyta dabar). Suprantama, kad naudotojas gaali pakeisti tekstą į reikiamą.
+	{\bf Bendras bandinių išvaizdos apibūdinimas bandinių priėmimo metu:} {{TESTSAMPLESRECEIVEDCOMMENT}} % Šitą tekstą paimti iš programos lauko kuriame jis įdedamas pagal nutylėjimą (t.y. toks kaip tai yra parašyta dabar). Suprantama, kad naudotojas gaali pakeisti tekstą į reikiamą.
 
 
 \section{Bandymo rezultatai}
@@ -137,22 +137,22 @@
 %---------------------------------------------------------------
 \hspace{\parindent}{\bf Išbandytos imties dydis:} išbandyti $ 3 $ betoniniai kubeliai.
 % Čia reikia įrašyti išbandytų kubelių skaičių
-Po pirminės apžiūros bandymui atrinkta $ 3 $ kubeliai,
+Po pirminės apžiūros bandymui atrinkta $ {{ACCEPTEDSAMPLECOUNT}} $ kubeliai,
 % Čia reikia įrašyti atrinktų kubelių skaičių. Pradinės gamybos atveju gali būti 3 bandiniai, o nuolatinės gamybos atveju 1 bandinys.
-$ 1 $ kubeliai (kubeliai) išbrokuoti. % Šis įrašas daromas jei yra išbrokuotų kubelių,
+$ {{REJECTEDSAMPLECOUNT}} $ kubeliai (kubeliai) išbrokuoti. % Šis įrašas daromas jei yra išbrokuotų kubelių,
 % Čia taip pat reikia įrašyti išbrokuotų kubelių skaičių
 
 Bandymo rezultatai surasyti į~\ref{table:bandymu_rezultatai} lentelę.
 
 \section{Skaičiavimo rezultatai}
 \begin{enumerate}
-	\item \hspace{\parindent}Vidutinio gniuždomojo striprio įvertis $ f_{cm,cube} =  43.7033 $ MPa % Čia reikia įrašyti apskaičiuotą betono vidutinio stiprio įvertį
+	\item \hspace{\parindent}Vidutinio gniuždomojo striprio įvertis $ f_{cm,cube} =  {{AVERAGECRUSHFORCE}} $ MPa % Čia reikia įrašyti apskaičiuotą betono vidutinio stiprio įvertį
 	      
 	\item Standartinio nuokrypio įvertis $ s = 10.25 $ MPa % Čia reikia įrašyti apskaičiuotą betono kubelinio stiprumo vidurkio įvertį
 	      
-	\item  Charakteristinio stiprio įvertis $ f_{ck,cube} = 39.703 $ MPa % Čia reikia įrašyti apskaičiuotą betono kubelinio stiprumo standartinio nuokrypio įvertį
+	\item  Charakteristinio stiprio įvertis $ f_{ck,cube} = {{CHARACTERISTICSTRENGTH}} $ MPa % Čia reikia įrašyti apskaičiuotą betono kubelinio stiprumo standartinio nuokrypio įvertį
 	      
-	\item Artimaiausia mažesnė betono klasė nustatyta pagal kubelinį stiprį $f_{ck,cube}$: $ C35/45 $
+	\item Artimaiausia mažesnė betono klasė nustatyta pagal kubelinį stiprį $f_{ck,cube}$: $ {{CONCRETERATING}} $
 \end{enumerate}
 % Čia reikia įrašyti nustatytą betono klasę pvz. kaip čia duota C30/35 iš aibės:
 % Sunkiajam arba normaliajam betonui:
@@ -208,11 +208,7 @@ Bandymo rezultatai surasyti į~\ref{table:bandymu_rezultatai} lentelę.
 		  & $a, $  & $b$, & jėga $F$, & gniuždant          & \\
 		Nr.                                        & mm     & mm   & kN        & $f_{c,cube} $, MPa & \\
 		\hline
-		1 & 150.008 \\ 150 \\ 150.008 \\ 149.997 \\ 150 \\ 150 & 150 \\ 150.006 \\ 150.005 \\ 150 \\ 150 \\ 150 & 980 & 43.554 & \small{}  \\
-		\hline
-		2 & 150 \\ 150 \\ 150.005 \\ 149.993 \\ 150 \\ 150 & 150 \\ 149.992 \\ 150 \\ 150 \\ 150.006 \\ 150 & 982  & 43.645 & \small{Bandinys suiro netinkamai, pagal LST EN 12930 2 pav. Šio kubelio duomenys neitraukiami i skaičciavimus}  \\
-		\hline
-		3 & 150.006 \\ 150 \\ 149.993 \\ 150 \\ 150 \\ 150 & 150 \\ 150.004 \\ 150 \\ 150 \\ 150 \\ 150 & 988  & 43.911 & \small{} \\
+		1 & {{CROSSDATA11}} \\ {{CROSSDATA12}} \\ {{CROSSDATA13}} \\ {{CROSSDATA14}} \\ {{CROSSDATA15}} \\ {{CROSSDATA16}} & {{CROSSDATA17}} \\ {{CROSSDATA18}} \\ {{CROSSDATA19}} \\ {{CROSSDATA110}} \\ {{CROSSDATA111}} \\ {{CROSSDATA112}} & {{DESTRUCTIVEPOWER1}} & {{CRUSHINGSTRENGTH1}} & \small{{{DATACOMMENT1}}}  \\
 		\hline
 		\end{tabular}%
 	
