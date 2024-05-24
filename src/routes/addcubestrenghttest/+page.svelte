@@ -40,8 +40,8 @@
 
 
     const selectMap = new Map([
-        ["Pradinis", 3],
-        ["Nuolatinis", 1]
+        ["Tipo bandymas", 3],
+        ["Periodinis", 1]
     ]);
 
 </script>
@@ -119,12 +119,12 @@
                         <div class="select">
                             <label for="name">Bandymo tipas: </label>
                             <select  id="testTypeId" bind:value={selectedTestType} name="testType">
-                                <option value="Pradinis">{"Pradinis"}</option>
-                                <option value="Nuolatinis">{"Nuolatinis"}</option>
+                                <option value="Tipo bandymas">{"Tipo bandymas"}</option>
+                                <option value="Periodinis">{"Periodinis"}</option>
                             </select>
                         </div>
                         <div class="input-container">
-                            <label for="name">Išbandytos imties dydis:</label>
+                            <label for="name">Imties dydis:</label>
                             <input     
                                 id="acceptedSampleCountInput"
                                 class="input my-2"
@@ -137,7 +137,7 @@
                             />
                         </div>
                         <div class="input-container">
-                            <label for="name">išbrokuotų kubelių kiekis:</label>
+                            <label for="name">neatiktinių kubelių kiekis:</label>
                             <input
                                 id="name"
                                 class="input my-2"
@@ -160,7 +160,7 @@
                                 <input type="date" name="testExecutionDate" required>
                         </div>
                         <div class="input-container">
-                            <label for="name">Bandytojas:</label>
+                            <label for="name">Bandė:</label>
                             <input
                                 id="name"
                                 class="input my-2"

@@ -94,7 +94,7 @@ export const GET: RequestHandler = async ({ request, params }) => {
     let outputPath = '';
 
 
-    if (strengthTest.TestType === 'Pradinis') {
+    if (strengthTest.TestType === 'Tipo bandymas') {
         latexTemplate = latexTemplate1;
         //filename = path.join(getProjectRoot(), 'tex', filename1 + latexExtension);;
         editedTexOutput = path.join(getProjectRoot(), 'tex', filename1 + latexExtension);
@@ -115,7 +115,7 @@ export const GET: RequestHandler = async ({ request, params }) => {
     // let filename = '';
     // let editedTexOutput = '';
     // let outputPath = '';
-    // if (strengthTest.TestType === 'Pradinis') {
+    // if (strengthTest.TestType === 'Tipo bandymas') {
     //     filename = '"D:\\Repositories\\BD github\\BD\\tex\\Betono kubelinio stiprio nustatymas LST EN 12390-3.tex"';
     //     editedTexOutput = '.\\tex\\Betono kubelinio stiprio nustatymas LST EN 12390-3.tex';
     //     outputPath = '.\\tex\\Betono kubelinio stiprio nustatymas LST EN 12390-3.pdf';
@@ -129,7 +129,7 @@ export const GET: RequestHandler = async ({ request, params }) => {
     // Read tex template
     let data = fs.readFileSync(path.basename(latexTemplate), 'utf8');
 
-    // if (strengthTest.TestType === 'Pradinis') {
+    // if (strengthTest.TestType === 'Tipo bandymas') {
 
     data = data.replace('{{STRENGTHTESTID}}', strengthTest.Id.toString());
     data = data.replace('{{STRENGTHTESTID2}}', strengthTest.Id.toString());
@@ -155,29 +155,17 @@ export const GET: RequestHandler = async ({ request, params }) => {
     }).format(new Date(strengthTest.TestSamplesReceivedDate));
 
     data = data.replace('{{TESTSAMPLESRECEIVEDDATE}}', formattedDate);
-
     data = data.replace('{{TESTSAMPLESDELIVEREDBY}}', strengthTest.TestSamplesDeliveredBy);
-
     data = data.replace('{{STRENGTHTESTEXECUTEDBYNAME}}', strengthTest.TestExecutedByUserId.name);
-
     data = data.replace('{{STRENGTHTESTPROTOCOLCREATEDBYNAME}}', strengthTest.ProtocolCreatedByUserId.name);
-
     data = data.replace('{{TESTTYPE}}', strengthTest.TestType);
-
     data = data.replace('{{CONCRETETYPE}}', strengthTest.ConcreteType);
-
     data = data.replace('{{TESTSAMPLESRECEIVEDCOUNT}}', strengthTest.TestSamplesReceivedCount.toString());
-
     data = data.replace('{{TESTSAMPLESRECEIVEDCOMMENT}}', strengthTest.TestSamplesReceivedComment);
-
     data = data.replace('{{ACCEPTEDSAMPLECOUNT}}', strengthTest.AcceptedSampleCount.toString());
-
     data = data.replace('{{REJECTEDSAMPLECOUNT}}', strengthTest.RejectedSampleCount.toString());
-
     data = data.replace('{{AVERAGECRUSHFORCE}}', strengthTest.AverageCrushForce.toString());
-
     data = data.replace('{{CHARACTERISTICSTRENGTH}}', strengthTest.CharacteristicStrenght.toString());
-
     data = data.replace('{{CONCRETERATING}}', strengthTest.ConcreteRating);
 
     data = data.replace('{{DESTRUCTIVEPOWER1}}', strengthTestData[0].DestructivePower.toString());
@@ -197,7 +185,7 @@ export const GET: RequestHandler = async ({ request, params }) => {
     data = data.replace('{{CROSSDATA111}}', crossSectionalDimensions[0][10].Value.toString());
     data = data.replace('{{CROSSDATA112}}', crossSectionalDimensions[0][11].Value.toString());
 
-    if (strengthTest.TestType === 'Pradinis') {
+    if (strengthTest.TestType === 'Tipo bandymas') {
 
         data = data.replace('{{DESTRUCTIVEPOWER2}}', strengthTestData[1].DestructivePower.toString());
         data = data.replace('{{DESTRUCTIVEPOWER3}}', strengthTestData[2].DestructivePower.toString());

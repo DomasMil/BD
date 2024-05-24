@@ -51,7 +51,7 @@ export const load = (({ request, depends }) => {
 	depends('template:load');
     const cookies = request.headers.get('cookie');
     const { role } = parse(cookies || '');
-	if (!role?.includes('admin' && 'employee')) {
+	if (!role?.includes('admin') && !role?.includes('employee')) {
 		throw error(404, 'Neteisėtas prisijungimas');
 	}
     let users: MyUserType[] = getUsers();
