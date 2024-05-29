@@ -39,7 +39,7 @@
 \lfoot{}
 \cfoot{}
 \rfoot{\thepage~puslapis~iš~\pageref{LastPage}~puslapių}
-
+\usepackage{float}
 % Standartinė puslapio virsaus antraštė. Man nepatinka reikia kartoti \markboth{}{}
 % Arba \markright{} kiekvien
 % \pagestyle{headings} 
@@ -111,7 +111,7 @@
 \vspace{0.5cm}
 \hspace{5.25cm} {\bf Bandinius pristatė:} {{{TESTSAMPLESDELIVEREDBY}}}. % Reikia čia įrašyti kas bandinius pristatė, galima padaryti ir pasirinkimus: Užsakovas / Užsakovo įgaliotas atstovas / Vykdytojas  Į
 
-\hspace{5.25cm} {\bf Bandymus atliko:} {{{STRENGTHTESTEXECUTEDBYNAME}}}. % Reikia čia įrašyti laboranto vardą ir pavardę
+\hspace{5.25cm} {\bf Bandė:} {{{STRENGTHTESTEXECUTEDBYNAME}}}. % Reikia čia įrašyti laboranto vardą ir pavardę
 
 \hspace{5.25cm} {\bf Protokolą sudarė:} {{{STRENGTHTESTPROTOCOLCREATEDBYNAME}}}.% Reikia čia įrašyti protokolo sudarytojo vardą ir pavardę
 
@@ -142,47 +142,7 @@ Po pirminės apžiūros bandymui atrinkta $ {{ACCEPTEDSAMPLECOUNT}} $ kubeliai,
 $ {{REJECTEDSAMPLECOUNT}} $ kubeliai (kubeliai) neatiktiniai. % Šis įrašas daromas jei yra išbrokuotų kubelių,
 % Čia taip pat reikia įrašyti išbrokuotų kubelių skaičių
 
-Bandymo rezultatai surasyti į~\ref{table:bandymu_rezultatai} lentelę.
-
-\section{Skaičiavimo rezultatai}
-\begin{enumerate}
-	\item \hspace{\parindent}Vidutinio gniuždomojo striprio įvertis $ f_{cm,cube} =  {{AVERAGECRUSHFORCE}} $ MPa % Čia reikia įrašyti apskaičiuotą betono vidutinio stiprio įvertį
-	      
-	\item Standartinio nuokrypio įvertis $ s = 10.25 $ MPa % Čia reikia įrašyti apskaičiuotą betono kubelinio stiprumo vidurkio įvertį
-	      
-	\item  Charakteristinio stiprio įvertis $ f_{ck,cube} = {{CHARACTERISTICSTRENGTH}} $ MPa % Čia reikia įrašyti apskaičiuotą betono kubelinio stiprumo standartinio nuokrypio įvertį
-	      
-	\item Artimaiausia mažesnė betono klasė nustatyta pagal kubelinį stiprį $f_{ck,cube}$: $ {{CONCRETERATING}} $
-\end{enumerate}
-% Čia reikia įrašyti nustatytą betono klasę pvz. kaip čia duota C30/35 iš aibės:
-% Sunkiajam arba normaliajam betonui:
-%    (*)  pagal cilindrinį stiprį
-%         K_cyl = {8 , 12, 16, 20, 25, 30, 35, 40, 45, 50, 55, 60, 70, 80, 90, 100}
-%    (**) pagal kubelinį stiprį
-%         K_cube = {10, 15, 20, 25, 30, 37, 45, 50, 55, 60, 67, 75, 85, 95, 105, 115}
-% Standartinės klasės: K = {C8\10, C12\15, C16\20, C20\25, C25\30, C30\37, C35\45, C40\50, C45\55, C50\60, C55\67, C60\75, C70\85, C80\95, C90\105, C100\115}
-%  Čia įraše "C60\75" 60 yra K_cyl aibės elementas o 75 yra K_cube aibės elementas. 
-% Taigi pagal f_{ck,cube} nustatome klasę t.y. aibės K_cube elementą c_cube
-% ir pagal jį įrašome K aibės elementą, kaip čia parodyta C30/35
-%  Čia c_cube = min{c ∈ K_cube: c <= f_ck,cube}
-
-% Lengvajam betonui
-%    (*)  pagal cilindrinį stiprį
-%             LK_cyl = {8, 12, 16, 20, 25, 30, 35, 40, 45, 50, 55, 60, 70, 80}
-%    (**) pagal kubelinį stiprį
-%             LK_cube = {9, 13, 18, 22, 28, 33, 38, 44, 50, 55, 60, 66, 77, 88}
-% Standartinės lengvojo betono klasės: LK = {LC8\9, LC12\13, LC16\18, LC20\22, LC25\28, LC30\33, LC35\38, LC40\44, LC45\50, LC50\55, LC55\60, LC60\66, LC70\77, LC80\88}
-%  Čia LC40\44 40 yra LK_cyl aibės elementas o 44 yra LK_cube aibės elementas. 
-% Taigi pagal f_{ck,cube} nustatome klasę t.y. aibės LK_cube elementą
-% ir pagal jį įrašome K aibės elementą, pvz. LC30/33
-% ----------------------------------------------------------------------------------
-% Tačiau gali būti ir taip, kad betono klasė gali ir nebūti, Kai f_{ck,cube} < min(K_cube).
-% Tada reikia įrašyti, taip: 
-%             "Nustatytas charakteristinis stiupris neatitinka mažiausios betono klasės reikalavimų"
-
-%---------------------------------------------------------------------------------
-
-% 	========================================	
+Bandymo rezultatai surasyti į 1 lentelę. %~\ref{table:bandymu_rezultatai}
 
 % Į šią lentelę surašomi bandymų duomenys ir skaičiavimų duomenys
 % Surašomi: am, bm, F, apskaičiuotas kiekvieno bandinio fcm = F / (am * bm)
@@ -218,6 +178,60 @@ Bandymo rezultatai surasyti į~\ref{table:bandymu_rezultatai} lentelę.
 	
 	  %	}
 \end{table}
+
+\section{Skaičiavimo rezultatai}
+\begin{enumerate}
+	\item \hspace{\parindent}Vidutinio gniuždomojo striprio įvertis $ f_{cm,cube} =  {{AVERAGECRUSHFORCE}} $ MPa % Čia reikia įrašyti apskaičiuotą betono vidutinio stiprio įvertį
+	      
+	\item Standartinio nuokrypio įvertis $ s = 10.25 $ MPa % Čia reikia įrašyti apskaičiuotą betono kubelinio stiprumo vidurkio įvertį
+	      
+	\item  Charakteristinio stiprio įvertis $ f_{ck,cube} = {{CHARACTERISTICSTRENGTH}} $ MPa % Čia reikia įrašyti apskaičiuotą betono kubelinio stiprumo standartinio nuokrypio įvertį
+	      
+	\item Artimaiausia mažesnė betono klasė nustatyta pagal kubelinį stiprį $f_{ck,cube}$: $ {{CONCRETERATING}} $
+\end{enumerate}
+
+\vspace{2cm}
+\noindent\begin{tabular}{@{}>{\centering}p{2.5in}>{\centering}p{2.5in}@{}}
+	\dotfill                         & \dotfill \tabularnewline
+	Dr. Fernando Torres              &  Data \tabularnewline
+	(Assistant Professor Discipline Of Computer Science School Of Engineering La Liga)  
+									 &  \tabularnewline
+									 \dotfill                         & \dotfill \tabularnewline
+	Dr. Fernando Torres              &  Data \tabularnewline
+	(Assistant Professor Discipline Of Computer Science School Of Engineering La Liga)  
+									 &  \tabularnewline
+	\end{tabular} 
+% Čia reikia įrašyti nustatytą betono klasę pvz. kaip čia duota C30/35 iš aibės:
+% Sunkiajam arba normaliajam betonui:
+%    (*)  pagal cilindrinį stiprį
+%         K_cyl = {8 , 12, 16, 20, 25, 30, 35, 40, 45, 50, 55, 60, 70, 80, 90, 100}
+%    (**) pagal kubelinį stiprį
+%         K_cube = {10, 15, 20, 25, 30, 37, 45, 50, 55, 60, 67, 75, 85, 95, 105, 115}
+% Standartinės klasės: K = {C8\10, C12\15, C16\20, C20\25, C25\30, C30\37, C35\45, C40\50, C45\55, C50\60, C55\67, C60\75, C70\85, C80\95, C90\105, C100\115}
+%  Čia įraše "C60\75" 60 yra K_cyl aibės elementas o 75 yra K_cube aibės elementas. 
+% Taigi pagal f_{ck,cube} nustatome klasę t.y. aibės K_cube elementą c_cube
+% ir pagal jį įrašome K aibės elementą, kaip čia parodyta C30/35
+%  Čia c_cube = min{c ∈ K_cube: c <= f_ck,cube}
+
+% Lengvajam betonui
+%    (*)  pagal cilindrinį stiprį
+%             LK_cyl = {8, 12, 16, 20, 25, 30, 35, 40, 45, 50, 55, 60, 70, 80}
+%    (**) pagal kubelinį stiprį
+%             LK_cube = {9, 13, 18, 22, 28, 33, 38, 44, 50, 55, 60, 66, 77, 88}
+% Standartinės lengvojo betono klasės: LK = {LC8\9, LC12\13, LC16\18, LC20\22, LC25\28, LC30\33, LC35\38, LC40\44, LC45\50, LC50\55, LC55\60, LC60\66, LC70\77, LC80\88}
+%  Čia LC40\44 40 yra LK_cyl aibės elementas o 44 yra LK_cube aibės elementas. 
+% Taigi pagal f_{ck,cube} nustatome klasę t.y. aibės LK_cube elementą
+% ir pagal jį įrašome K aibės elementą, pvz. LC30/33
+% ----------------------------------------------------------------------------------
+% Tačiau gali būti ir taip, kad betono klasė gali ir nebūti, Kai f_{ck,cube} < min(K_cube).
+% Tada reikia įrašyti, taip: 
+%             "Nustatytas charakteristinis stiupris neatitinka mažiausios betono klasės reikalavimų"
+
+%---------------------------------------------------------------------------------
+
+% 	========================================	
+
+
 
 % 	========================================
 

@@ -199,7 +199,7 @@
                             <thead>
                                 <tr>
                                     <th>Bandino NR.</th>
-                                    <th class="center-text">Skerspjūvio matmenys, mm</th>
+                                    <th class="center-text">Bandinio Matmenys, mm</th>
                                     <th>Ardančioji jėga F, kN</th>
                                     <!-- <th>Stipris gniuždant fc, MPa</th> -->
                                     <th>Pastabos</th>
@@ -214,13 +214,13 @@
                                         <td>
                                             <div class="field is-flex">
                                                 <div>
-                                                    <label class="label">a</label>
+                                                    <label class="label">Skerspjūvio</label>
                                                     {#each [1, 2, 3, 4, 5, 6] as subIndex}
                                                         <input type="number" min=0 step=0.001 name={`crossSection-a-${index}-${subIndex}`} value="{150}" class="input crossSection-input"  />
                                                     {/each}
                                                 </div>
                                                 <div>
-                                                    <label class="label">b</label>
+                                                    <label class="label">Aukščio</label>
                                                     {#each [1, 2, 3, 4, 5, 6] as subIndex}
                                                         <input type="number" min=0 step=0.001 name={`crossSection-b-${index}-${subIndex}`} value="{150}" class="input crossSection-input"  />
                                                     {/each}
