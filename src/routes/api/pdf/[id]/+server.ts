@@ -221,6 +221,9 @@ export const GET: RequestHandler = async ({ request, params }) => {
         data = data.replace('{{CROSSDATA312}}', crossSectionalDimensions[2][11].Value.toString());
 
     }
+
+    data = data.replace('{{STRENGTHTESTPROTOCOLCREATEDBYNAME1}}', strengthTest.ProtocolCreatedByUserId.name);
+    data = data.replace('{{STRENGTHTESTCLIENTCOMPANYNAME1}}', strengthTest.ClientCompanyId.Name);
     // write into tex folder with changed data
     fs.writeFileSync(editedTexOutput, data);
 

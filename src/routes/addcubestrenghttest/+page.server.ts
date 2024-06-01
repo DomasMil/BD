@@ -90,7 +90,6 @@ for (let entry of data) {
     const name = entry[0];
     const value = entry[1];
 
-    // Filter out unwanted entries
     if (!name.startsWith('crossSection') && !name.startsWith('destructivePower') && !name.startsWith('crushingStrength') && !name.startsWith('Comment')) {
         continue;
     }
@@ -237,11 +236,12 @@ console.log("***************PARSEDTABLEEND****************");
             } else {
 
                 let avgCubeStrengthTotal = Number(data0[0].value*1000)/(sumA1*sumB1);
+                console.log("***************AVG1****************",avgCubeStrengthTotal)
                 await updateStrengthTestDataCrushingStrength(Number(avgCubeStrengthTotal.toFixed(3)), strengthTestData.Id)
                 let StandardDeviation = Math.sqrt(Math.pow(((Math.pow(((1-0.0009)),2))),2));
                 let characteristicStrenght = Math.min(avgCubeStrengthTotal+1.48*StandardDeviation,Math.min(avgCubeStrengthTotal)+4);
                 let concreteClass = findClass(characteristicStrenght);
-                await updateStrengthTestTypeConstaint(strengthTest.Id, Number(characteristicStrenght.toFixed(3)), Number(StandardDeviation.toFixed(3)), concreteClass)
+                await updateStrengthTestTypeInitial(strengthTest.Id, avgCubeStrengthTotal, Number(characteristicStrenght.toFixed(3)), concreteClass)
             }
 
             

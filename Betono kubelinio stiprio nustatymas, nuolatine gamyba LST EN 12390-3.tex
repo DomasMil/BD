@@ -142,18 +142,8 @@ Po pirminės apžiūros bandymui atrinkta $ {{ACCEPTEDSAMPLECOUNT}} $ kubeliai,
 $ {{REJECTEDSAMPLECOUNT}} $ kubeliai (kubeliai) neatiktiniai. % Šis įrašas daromas jei yra išbrokuotų kubelių,
 % Čia taip pat reikia įrašyti išbrokuotų kubelių skaičių
 
-Bandymo rezultatai surasyti į~\ref{table:bandymu_rezultatai} lentelę.
+Bandymo rezultatai surasyti į 1 lentelę.
 
-\section{Skaičiavimo rezultatai}
-\begin{enumerate}
-	\item \hspace{\parindent}Vidutinio gniuždomojo striprio įvertis $ f_{cm,cube} =  {{AVERAGECRUSHFORCE}} $ MPa % Čia reikia įrašyti apskaičiuotą betono vidutinio stiprio įvertį
-	      
-	\item Standartinio nuokrypio įvertis $ s = 10.25 $ MPa % Čia reikia įrašyti apskaičiuotą betono kubelinio stiprumo vidurkio įvertį
-	      
-	\item  Charakteristinio stiprio įvertis $ f_{ck,cube} = {{CHARACTERISTICSTRENGTH}} $ MPa % Čia reikia įrašyti apskaičiuotą betono kubelinio stiprumo standartinio nuokrypio įvertį
-	      
-	\item Artimaiausia mažesnė betono klasė nustatyta pagal kubelinį stiprį $f_{ck,cube}$: $ {{CONCRETERATING}} $
-\end{enumerate}
 % Čia reikia įrašyti nustatytą betono klasę pvz. kaip čia duota C30/35 iš aibės:
 % Sunkiajam arba normaliajam betonui:
 %    (*)  pagal cilindrinį stiprį
@@ -187,6 +177,7 @@ Bandymo rezultatai surasyti į~\ref{table:bandymu_rezultatai} lentelę.
 % Į šią lentelę surašomi bandymų duomenys ir skaičiavimų duomenys
 % Surašomi: am, bm, F, apskaičiuotas kiekvieno bandinio fcm = F / (am * bm)
 % ir pastabos.
+\pagebreak
 \begin{table}[H] % Čia turėtu būti parametras [t] lentelės patalpinimui puslapio viršuje
 	% Su overleaf veikia bet su mano vs codu ir mano Tex Life tai neveikia
 	% Lentelės iš viso nebraižo kai įvedu [t], arba [h], nežinau kodėl  
@@ -215,6 +206,27 @@ Bandymo rezultatai surasyti į~\ref{table:bandymu_rezultatai} lentelę.
 	  %	}
 \end{table}
 
+\section{Skaičiavimo rezultatai}
+\begin{enumerate}
+	\item \hspace{\parindent}Vidutinio gniuždomojo striprio įvertis $ f_{cm,cube} =  {{AVERAGECRUSHFORCE}} $ MPa % Čia reikia įrašyti apskaičiuotą betono vidutinio stiprio įvertį
+	      
+	\item Standartinio nuokrypio įvertis $ s = 10.25 $ MPa % Čia reikia įrašyti apskaičiuotą betono kubelinio stiprumo vidurkio įvertį
+	      
+	\item  Charakteristinio stiprio įvertis $ f_{ck,cube} = {{CHARACTERISTICSTRENGTH}} $ MPa % Čia reikia įrašyti apskaičiuotą betono kubelinio stiprumo standartinio nuokrypio įvertį
+	      
+	\item Artimaiausia mažesnė betono klasė nustatyta pagal kubelinį stiprį $f_{ck,cube}$: $ {{CONCRETERATING}} $
+\end{enumerate}
+
+\noindent\begin{tabular}{@{}>{\centering}p{2.5in}>{\centering}p{2.5in}@{}}
+	\dotfill                         & \dotfill \tabularnewline
+	(Vykdytojo vardas, pavardė)              &  Parašas \tabularnewline
+  
+									 &  \tabularnewline
+									 \dotfill                         & \dotfill \tabularnewline
+	(Užsakovo vardas, pavardė)              &  Parašas \tabularnewline
+  
+									 &  \tabularnewline
+	\end{tabular} 
 % 	========================================
 
 \end{document}
