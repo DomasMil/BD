@@ -28,5 +28,4 @@ export async function createStrengthTestData(strengthTestId: number, comment: st
 
 export async function updateStrengthTestDataCrushingStrength(crushingStrength: number, id: number) {
     const [result] = await pool.query('UPDATE strength_test_data SET CrushingStrength = ? WHERE id = ?', [crushingStrength, id]);
-    //return result;
 }

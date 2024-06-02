@@ -79,23 +79,6 @@
         >Keisti slaptažodį</button
       >
         </form>
-        <!-- <form>
-          <div class="field">
-            <label class="label" for="name">Vardas Pavardė</label>
-            <div class="control">
-              <input class="input" type="text" id="name" bind:value={user.name}>
-            </div>
-          </div>
-          <div class="field">
-            <label class="label" for="email">El. paštas</label>
-            <div class="control">
-              <input class="input" type="email" id="email" bind:value={user.email}>
-            </div>
-          </div>
-          <div class="control">
-            <button class="button is-primary" on:click={updateUser}>Redaguoti</button>
-          </div>
-        </form> -->
       </div>
     </div>
 </div>

@@ -69,7 +69,6 @@ export const actions: Actions = {
 
     addStrengthTest: async ({ request, cookies }) => {
         const data = await request.formData();
-        console.log("***************DATA****************", data)
         const clientCompany = data.get('clientCompany')?.toString();
         const companyConstructionSite = data.get('companyConstructionSite')?.toString();
         const receivedDate = data.get('receivedDate')?.toString();
@@ -164,13 +163,6 @@ for (let index in parsedData) {
     }
 }
 
-console.log("***************PARSEDTABLE1****************",JSON.stringify(data0, null, 2));
-console.log("***************PARSEDTABLEEND****************");
-console.log("***************PARSEDTABLE2****************",JSON.stringify(data1, null, 2));
-console.log("***************PARSEDTABLEEND****************");
-console.log("***************PARSEDTABLE3****************",JSON.stringify(data2, null, 2));
-console.log("***************PARSEDTABLEEND****************");
-
         if (clientCompany && companyConstructionSite && receivedDate && deliveredBy && sampleReceivedComment && sampleCount && testType && acceptedSampleCount && rejectedSampleCount && concreteType && testExecutionDate && testExecutorId && testExecutorCompanyId) {
             let sumA1 = 0;
             let sumB1 = 0;
@@ -223,20 +215,14 @@ console.log("***************PARSEDTABLEEND****************");
                 let avgCubeStrength2 = Number(data1[0].value*1000)/(sumA2*sumB2);
                 await updateStrengthTestDataCrushingStrength(Number(avgCubeStrength2.toFixed(3)), strengthTestData1.Id)
                 let avgCubeStrength3 = Number(data2[0].value*1000)/(SumA3*SumB3);
-                console.log("***************data****************",data2[0].value)
                 await updateStrengthTestDataCrushingStrength(Number(avgCubeStrength3.toFixed(3)), strengthTestData2.Id)
-                console.log("***************AVG1****************",avgCubeStrength1)
-                console.log("***************AVG2****************",avgCubeStrength2)
-                console.log("***************AVG3****************",avgCubeStrength3)
                 let avgCubeStrengthTotal = (avgCubeStrength1 + avgCubeStrength2 + avgCubeStrength3)/3;
-                console.log("***************AVGTOTAL****************",avgCubeStrengthTotal)
                 let characteristicStrenght = Math.min(avgCubeStrengthTotal-4,Math.min(avgCubeStrength1,avgCubeStrength2,avgCubeStrength3)+4);
                 let concreteClass = findClass(characteristicStrenght);
                 await updateStrengthTestTypeInitial(strengthTest.Id, Number(characteristicStrenght.toFixed(3)), avgCubeStrengthTotal, concreteClass)
             } else {
 
                 let avgCubeStrengthTotal = Number(data0[0].value*1000)/(sumA1*sumB1);
-                console.log("***************AVG1****************",avgCubeStrengthTotal)
                 await updateStrengthTestDataCrushingStrength(Number(avgCubeStrengthTotal.toFixed(3)), strengthTestData.Id)
                 let StandardDeviation = Math.sqrt(Math.pow(((Math.pow(((1-0.0009)),2))),2));
                 let characteristicStrenght = Math.min(avgCubeStrengthTotal+1.48*StandardDeviation,Math.min(avgCubeStrengthTotal)+4);

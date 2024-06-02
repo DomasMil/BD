@@ -1,5 +1,4 @@
 import bcrypt from 'bcrypt';
-import type { MyUserType } from "./UserType";
 
 import { pool } from '../../index';
 

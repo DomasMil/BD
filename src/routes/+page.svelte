@@ -7,7 +7,7 @@
 	if (typeof window !== 'undefined') {
 		if(!data.loggedIn){
 			goto('/login');
-		}else if(data.loggedIn ){ //&& data.role == 'admin'
+		}else if(data.loggedIn ){
 			goto('/users');
 		}
 		else{
@@ -19,20 +19,5 @@
 
 
   <style>
-
-	/* .test-available {
-	color: green;
-	font-size: 16px;
-	margin-left: 16px;
-	transition: opacity 0.3s ease-in-out;
-	position: absolute;
-	left: 100%;
-	top: 50%;
-	transform: translateY(-50%);
-	} */
-  
-	/* .visible {
-	  opacity: 1;
-	} */
   
   </style>

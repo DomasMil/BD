@@ -1,10 +1,8 @@
 <script lang="ts">
 	import type { PageData } from '../addconcretecubestrenghttest/$types';
     import type { MyUserType } from '$lib/server/db/tables/user/UserType';
-	import type { ActionData } from '../addconcretecubestrenghttest/$types';
 	import type { CompanyType } from '$lib/server/db/tables/company/CompanyType';
 	import type { ConstructionSiteType } from '$lib/server/db/tables/constructionsite/ConstructionSiteType';
-	import { get } from 'svelte/store';
 	import { onMount } from 'svelte';
 
     // Variable to store selected date and time
@@ -258,37 +256,37 @@
 .input-container {
     display: flex;
     align-items: center;
-    margin-bottom: 10px; /* Add margin bottom to create space between input fields */
+    margin-bottom: 10px;
 }
 
 .crossSection-input {
     display: inline-block;
-    width: calc(50% - 5px); /* Adjust as needed */
+    width: calc(50% - 5px); 
     margin-right: 10px;
     max-width: 50%;
     min-width: 100px;
 }
 
 .input-container label {
-    width: 200px; /* Adjust width as needed */
+    width: 200px; 
     margin-right: 10px;
-    white-space: nowrap; /* Prevent label text from wrapping */
+    white-space: nowrap; 
 }
 
 .select, .date {
     display: flex;
     align-items: center;
-    margin-bottom: 10px; /* Add margin bottom to create space between input fields */
+    margin-bottom: 10px; 
 }
 
 .select label {
-    width: 200px; /* Adjust width as needed */
+    width: 200px; 
     margin-right: 10px;
-    white-space: nowrap; /* Prevent label text from wrapping */
+    white-space: nowrap; 
 }
 
 .select select {
-    width: calc(100% - 10px); /* Adjust width to fit within the container */
+    width: calc(100% - 10px); 
     padding: 8px;
     font-size: 1em;
     border: 1px solid #ccc;
@@ -298,7 +296,7 @@
 
 
 .is-flex > div:not(:last-child) {
-    margin-right: auto; /* Adjust this value as needed */
+    margin-right: auto; 
     
 }
 

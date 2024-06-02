@@ -1,12 +1,9 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-    import type { MyUserType } from '$lib/server/db/tables/user/UserType';
 	import type { StrengthTestListType } from '$lib/server/db/tables/strengthtest/StrengthTestType';
-    import { goto } from '$app/navigation';
     
     export let data: PageData;
 
-    //let users: MyUserType[];
     let strengthTests: StrengthTestListType[];
 	let currentPageStrengthTests : StrengthTestListType[];
 
@@ -17,54 +14,7 @@
     let isModalOpen = false;
     let selectedStrengthTest: StrengthTestListType | null = null;
 
-    // const { exec } = require('child_process');
-    // const fs = require('fs');
-
-//     function convertToPdf() {
-//     const texFile = 'src/Betono kubelinio stiprio nustatymas LST EN 12390-3.tex'; // Path to your .tex file
-
-//     // Send a request to your server to convert the .tex file to PDF
-//     fetch('/api/pdf', {
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify({ texFile }),
-//     })
-//     .then(response => {
-//         if (!response.ok) {
-//             throw new Error('Failed to convert .tex file to PDF');
-//         }
-//         return response.blob();
-//     })
-//     .then(pdfBlob => {
-//         // Do something with the PDF blob, such as displaying it or downloading it
-//         const pdfUrl = URL.createObjectURL(pdfBlob);
-//         window.open(pdfUrl); // Open the PDF in a new tab
-//     })
-//     .catch(error => {
-//         console.error('Error converting .tex file to PDF:', error);
-//     });
-// }
-
-// 	function convertToPdf() {
-//     const texFile = 'src\\Betono kubelinio stiprio nustatymas LST EN 12390-3.tex'; // Path to your .tex file
-
-//     exec(`pdflatex "${texFile}"`, (error: Error | null, stdout: string, stderr: string) => {
-//         if (error) {
-//             console.error(`Error executing pdflatex: ${error}`);
-//             return;
-//         }
-
-//         console.log('PDF created successfully');
-
-//         // Rename the PDF file to a desired name
-//         fs.renameSync(`${texFile.replace('.tex', '.pdf')}`, 'output.pdf');
-//     });
-// }
-
 async function createPDF(id: number) {
-    //console.log("*************ID*****************",id);
         try {
             const response = await fetch(`/api/pdf/${id}`, {
                 method: 'GET',
@@ -148,17 +98,6 @@ async function createPDF(id: number) {
                 <p class="title py-4 px-4">
                     Kubelinio stiprio bandymai
                 </p>
-                <!-- <td><button
-                    type="button"
-                    class="button is-small is-info"
-                    on:click={() => {
-                        console.log('alo');
-                        createPDF();
-                    }}
-                >
-                    {'Atsisiųsti duomenis'}</button
-                ></td> -->
-                <!-- <button on:click={convertToPdf} class="button is-primary">Convert to PDF</button> -->
             </div>
         </header>
         <div class="card-content">
@@ -185,17 +124,6 @@ async function createPDF(id: number) {
                                     <td>{strengthTest.TestType}</td>
 									<td>{`${strengthTest.TestSamplesReceivedDate.getFullYear()}-${('0' + (strengthTest.TestSamplesReceivedDate.getMonth() + 1)).slice(-2)}-${('0' + strengthTest.TestSamplesReceivedDate.getDate()).slice(-2)}`}</td>
 									<td>{strengthTest.TestExecutedByUserId.name}</td>
-									<!-- <td><button type="button" class="button is-small is-info" on:click={() =>{
-                                        selectedStrengthTest = strengthTest;
-                                        isModalOpen = true;
-                                    }}>{"user.attempts.length"}</button></td> -->
-                                    <!-- <td>
-                                        <button type="button" class="button is-small is-info" on:click={() =>{
-                                            selectedStrengthTest = strengthTest;
-                                            goto(`/cubestrenghttest/${strengthTest.Id}`);
-                                    }}>
-                                        {"Išsamiau"}</button>
-                                    </td> -->
                                     <td><button
                                         type="button"
                                         class="button is-small is-info"

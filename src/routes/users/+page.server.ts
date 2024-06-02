@@ -1,5 +1,3 @@
-import { error } from '@sveltejs/kit';
-import type { PageServerLoad } from '../$types';
 import type { MyUserType } from '$lib/server/db/tables/user/UserType';
 import { getUsers, getUsersByCompanyId, createUser } from '$lib/server/db/tables/user/User';
 import { parse } from 'cookie';

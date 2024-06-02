@@ -55,7 +55,6 @@ async function retrieveStrengthTestData(testId: number) {
     let [clientConstructionSite]: ConstructionSiteType[] = await getConstructionSiteById(Number(strengthTest.ClientConstructionSiteId)) as ConstructionSiteType[];
     strengthTest.ClientConstructionSiteId = clientConstructionSite;
     let strengthTestData: StrengthTestDataType[] = await getStrengthTestDataByStrengthTestId(strengthTest.Id) as StrengthTestDataType[];
-    //console.log("*********TESTDATA***********",strengthTestData);
     let crossSectionalDimensions: crossSectionalDimensionsType[][] = [];
     for (let data of strengthTestData) {
         let temp: crossSectionalDimensionsType[] = await getCrossSectionalDimensionsBycubestrenghttestDataId(data.Id) as crossSectionalDimensionsType[];
@@ -69,7 +68,6 @@ async function retrieveStrengthTestData(testId: number) {
     };
 }
 
-// Define the POST endpoint as an async function
 export const GET: RequestHandler = async ({ request, params }) => {
     const id = params.id;
     console.log("id yra ", id)
@@ -84,8 +82,6 @@ export const GET: RequestHandler = async ({ request, params }) => {
     const latexExtension = '.tex';
     const pdfExtension = '.pdf';
 
-    // Construct file paths using path.join for platform independence
-
     let filePath = '';
     let latexTemplate = '';
     let latexTemplate1 = path.join(getProjectRoot(), filename1 + latexExtension);
@@ -96,40 +92,17 @@ export const GET: RequestHandler = async ({ request, params }) => {
 
     if (strengthTest.TestType === 'Tipo bandymas') {
         latexTemplate = latexTemplate1;
-        //filename = path.join(getProjectRoot(), 'tex', filename1 + latexExtension);;
         editedTexOutput = path.join(getProjectRoot(), 'tex', filename1 + latexExtension);
         outputPath = path.join(getProjectRoot(), 'tex', filename1 + pdfExtension);
         filePath = path.join(getProjectRoot(), 'tex', filename1 + latexExtension);
     } else {
         latexTemplate = latexTemplate2;
-        //filename = path.join(getProjectRoot(), 'tex', filename2 + latexExtension);
         editedTexOutput = path.join(getProjectRoot(), 'tex', filename2 + latexExtension);
         outputPath = path.join(getProjectRoot(), 'tex', filename2 + pdfExtension);
         filePath = path.join(getProjectRoot(), 'tex', filename2 + latexExtension);
     }
 
-
-
-
-
-    // let filename = '';
-    // let editedTexOutput = '';
-    // let outputPath = '';
-    // if (strengthTest.TestType === 'Tipo bandymas') {
-    //     filename = '"D:\\Repositories\\BD github\\BD\\tex\\Betono kubelinio stiprio nustatymas LST EN 12390-3.tex"';
-    //     editedTexOutput = '.\\tex\\Betono kubelinio stiprio nustatymas LST EN 12390-3.tex';
-    //     outputPath = '.\\tex\\Betono kubelinio stiprio nustatymas LST EN 12390-3.pdf';
-    // } else {
-    //     filename =
-    //         '"D:\\Repositories\\BD github\\BD\\tex\\Betono kubelinio stiprio nustatymas, nuolatine gamyba LST EN 12390-3"';
-    //     editedTexOutput = '.\\tex\\Betono kubelinio stiprio nustatymas, nuolatine gamyba LST EN 12390-3.tex';
-    //     outputPath = '.\\tex\\Betono kubelinio stiprio nustatymas, nuolatine gamyba LST EN 12390-3.pdf';
-    // }
-
-    // Read tex template
     let data = fs.readFileSync(path.basename(latexTemplate), 'utf8');
-
-    // if (strengthTest.TestType === 'Tipo bandymas') {
 
     data = data.replace('{{STRENGTHTESTID}}', strengthTest.Id.toString());
     data = data.replace('{{STRENGTHTESTID2}}', strengthTest.Id.toString());
@@ -224,13 +197,11 @@ export const GET: RequestHandler = async ({ request, params }) => {
 
     data = data.replace('{{STRENGTHTESTPROTOCOLCREATEDBYNAME1}}', strengthTest.ProtocolCreatedByUserId.name);
     data = data.replace('{{STRENGTHTESTCLIENTCOMPANYNAME1}}', strengthTest.ClientCompanyId.Name);
-    // write into tex folder with changed data
     fs.writeFileSync(editedTexOutput, data);
 
     try {
-        await compileLatexFile(filePath); // Ensure LaTeX compilation finishes
+        await compileLatexFile(filePath);
 
-        // Read the resulting PDF file and send it back as a response
         const pdfBuffer = fs.readFileSync(outputPath);
         return new Response(pdfBuffer, {
             status: 200,
@@ -240,7 +211,6 @@ export const GET: RequestHandler = async ({ request, params }) => {
             }
         });
     } catch (error) {
-        // Handle errors and send appropriate responses
         console.error(error);
         return new Response(`Error creating PDF: ${error.message}`, {
             status: 500,

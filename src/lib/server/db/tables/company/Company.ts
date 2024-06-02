@@ -1,7 +1,3 @@
-import type { Database } from "better-sqlite3";
-import bcrypt from 'bcrypt';
-import type { CompanyType } from "./CompanyType";
-
 import { pool } from '../../index';
 
 export async function getCompanies() {

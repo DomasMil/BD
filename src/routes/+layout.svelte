@@ -77,7 +77,6 @@
 </header>
 <div class="columns">
 	{#if !isLoginPage}
-    <!-- Side menu -->
     <aside class="column is-2" style={isSideMenuOpen ? "display: block;" : "display: none;"}>
         <div class="menu">
             <ul class="menu-list">
@@ -96,23 +95,18 @@
 				{#if data?.role === 'admin' || data?.role === 'employee'}
 				<li><a href="/companies">Įmonės</a></li>
 				{/if}
-                <!-- Adjust links based on user role -->
             </ul>
         </div>
     </aside>
 	{/if}
 
-    <!-- Main content area -->
     <main class="column" style={isSideMenuOpen ? "margin-left: -0.5rem;" : "margin-left: 0;"}>
-        <!-- Your existing header/navigation bar code... -->
-		<!-- Button to toggle the side menu -->
 		{#if !isLoginPage && !isSideMenuOpen}
 		<button class="button is-info" on:click={toggleSideMenu}>→</button>
 		{:else if !isLoginPage && isSideMenuOpen}
 		<button class="button is-info" on:click={toggleSideMenu}>←</button>
 		{/if}
 
-        <!-- Content goes here -->
         <slot />
     </main>
 </div>
@@ -140,16 +134,15 @@
 		background: #009900; 
 	}
 
-	    /* Style for side menu */
 		.columns {
-        margin-top: -0.62rem; /* Adjust this as needed */
+        margin-top: -0.62rem;
 
     }
 	
     .menu {
-        background-color: #f5f5f5; /* Adjust as needed */
-        height: 100vh; /* Adjust as needed */
-        border-right: 1px solid #ccc; /* Adjust as needed */
+        background-color: #f5f5f5; 
+        height: 100vh; 
+        border-right: 1px solid #ccc;
     }
 
     .menu-list {
@@ -162,12 +155,12 @@
     }
 
     .menu-list li a {
-        color: #333; /* Adjust as needed */
+        color: #333; 
         text-decoration: none;
     }
 
     .menu-list li a:hover {
-        color: #007bff; /* Adjust as needed */
+        color: #007bff; 
     }
 	
 </style>
